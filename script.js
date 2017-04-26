@@ -88,9 +88,9 @@ function sprite (options) {
             }
         }
     };
-    //Change 128 to relevant variable expression
+
     that.move = function() {
-        if (rightPressed === true && that.x < canvas.width - 128) {
+        if (rightPressed === true && that.x < canvas.width - that.width / numberOfFrames) {
             mario.x += 5;
         }
         else if (leftPressed === true && that.x > 0) {
