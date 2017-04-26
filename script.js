@@ -46,8 +46,8 @@ function sprite (options) {
     that.image = options.image;
     that.x = options.x;
     that.y = options.y;
-    that.left = options.left;
-    that.right = options.right;
+    // that.left = options.left;
+    // that.right = options.right;
     that.topIndex = options.topIndex;
 
     that.render = function () {
@@ -152,8 +152,8 @@ var mario = sprite({
     ticksPerFrame: 8,
     x: 20,
     y: canvas.height - 148, 
-    right: true,
-    left: false,
+    // right: true,
+    // left: false,
 });
 
 function gameLoop () {
