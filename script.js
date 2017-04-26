@@ -5,10 +5,10 @@ window.onload = function() {
 
 var canvas = document.getElementById('game');
 var ctx = canvas.getContext('2d');
-canvas.width = 100;
-canvas.height = 100;
+canvas.width = 300;
+canvas.height = 300;
 var marioImage = new Image();
-marioImage.src = 'images/mario_wjlfy5.png';
+marioImage.src = 'images/mario_wjlfy5_large.png';
 // ctx.beginPath();
 // ctx.rect(0,0, 10,10);
 // ctx.fillStyle = '#FF0000';
@@ -63,9 +63,10 @@ function sprite (options) {
 
 var mario = sprite({
     context: canvas.getContext('2d'),
-    width: 16,
-    height: 16,
-    image: marioImage
+    width: 512,
+    height: 128,
+    image: marioImage,
+    numberOfFrames: 4,
 });
 
 function gameLoop () {
