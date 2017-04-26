@@ -91,6 +91,25 @@ function sprite (options) {
 // };
     that.runRight = function() {
         tickCount += 1;
+        that.topIndex = 0;
+        if (tickCount > ticksPerFrame) {
+            tickCount = 0;
+            if (frameIndex < numberOfFrames -1) {
+                frameIndex += 1;
+            }
+            else if (that.loop) {
+                frameIndex = 1;
+            }
+            else {
+                frameIndex = 1;
+            }
+        }
+    
+    };
+
+    that.runLeft = function() {
+        tickCount += 1;
+        that.topIndex = 128;
 
         if (tickCount > ticksPerFrame) {
             tickCount = 0;
@@ -105,14 +124,22 @@ function sprite (options) {
             }
         }
     
-};
+    };
     that.move = function() {
         if (rightPressed === true && that.x < canvas.width - that.width / numberOfFrames) {
             that.x += 3;
             that.runRight();
+            // that.right = true;
+            // that.left = false;
         }
         else if (leftPressed === true && that.x > 0) {
             that.x -= 3;
+            that.runLeft();
+            // that.right = false;
+            // that.left = true;
+        }
+        else  {
+            frameIndex = 0;
         }
     };
 
