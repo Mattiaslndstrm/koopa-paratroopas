@@ -39,7 +39,8 @@ function keyUpHandler(e) {
 
 
 function sprite (options) {
-    var that = {}, frameIndex = 1,
+    var that = {}, 
+        frameIndex = 0,
         tickCount = 0,
         ticksPerFrame = options.ticksPerFrame || 0,
         numberOfFrames = options.numberOfFrames || 1;
@@ -52,6 +53,7 @@ function sprite (options) {
     that.y = options.y;
     that.left = options.left;
     that.right = options.right;
+    that.topIndex = options.topIndex;
 
     that.render = function () {
         // Clear the canvas
@@ -60,7 +62,7 @@ function sprite (options) {
         that.context.drawImage (
             that.image,
             frameIndex * that.width / numberOfFrames,
-            0,
+            that.topIndex,
             that.width / numberOfFrames,
             that.height,
             that.x,
@@ -71,7 +73,23 @@ function sprite (options) {
 
     that.loop = options.loop;
 
-    that.update = function() {
+//     that.update = function() {
+//         tickCount += 1;
+
+//         if (tickCount > ticksPerFrame) {
+//             tickCount = 0;
+//             if (frameIndex < numberOfFrames -1) {
+//                 frameIndex += 1;
+//             }
+//             else if (that.loop) {
+//                 frameIndex = 1;
+//             }
+//             else {
+//                 frameIndex = 1;
+//             }
+//         }
+// };
+    that.runRight = function() {
         tickCount += 1;
 
         if (tickCount > ticksPerFrame) {
@@ -86,30 +104,15 @@ function sprite (options) {
                 frameIndex = 1;
             }
         }
-
-    // that.runRight = function() {
-    //     tickCount += 1;
-
-    //     if (tickCount > ticksPerFrame) {
-    //         tickCount = 0;
-    //         if (frameIndex < numberOfFrames -1) {
-    //             frameIndex += 1;
-    //         }
-    //         else if (that.loop) {
-    //             frameIndex = 1;
-    //         }
-    //         else {
-    //             frameIndex = 1;
-    //         }
-    //     }
-    };
-
+    
+};
     that.move = function() {
         if (rightPressed === true && that.x < canvas.width - that.width / numberOfFrames) {
-            mario.x += 5;
+            that.x += 3;
+            that.runRight();
         }
         else if (leftPressed === true && that.x > 0) {
-            mario.x -= 5;
+            that.x -= 3;
         }
     };
 
@@ -121,6 +124,7 @@ var mario = sprite({
     context: canvas.getContext('2d'),
     width: 512,
     height: 128,
+    topIndex: 0,
     image: marioImage,
     numberOfFrames: 4,
     ticksPerFrame: 8,
@@ -133,7 +137,7 @@ var mario = sprite({
 function gameLoop () {
     window.requestAnimationFrame(gameLoop);
 
-    mario.update();
+    
     mario.render();
     mario.move();
 }
