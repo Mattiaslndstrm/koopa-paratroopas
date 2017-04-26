@@ -29,6 +29,9 @@ function sprite (options) {
     that.image = options.image;
 
     that.render = function () {
+        // Clear the canvas
+        that.context.clearRect(0,0, that.width, that.height);
+        // Draw the animation
         that.context.drawImage (
             that.image,
             frameIndex * that.width / numberOfFrames,
@@ -48,10 +51,13 @@ function sprite (options) {
 
         if (tickCount > ticksPerFrame) {
             tickCount = 0;
-            if (frameIndex < numberOfFrames - 1) {
+            if (frameIndex < numberOfFrames -1) {
                 frameIndex += 1;
             }
             else if (that.loop) {
+                frameIndex = 0;
+            }
+            else {
                 frameIndex = 0;
             }
         }
@@ -67,6 +73,7 @@ var mario = sprite({
     height: 128,
     image: marioImage,
     numberOfFrames: 4,
+    ticksPerFrame: 4, 
 });
 
 function gameLoop () {
