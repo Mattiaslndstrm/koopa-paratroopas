@@ -5,10 +5,16 @@ window.onload = function() {
 
 var canvas = document.getElementById('game');
 var ctx = canvas.getContext('2d');
-canvas.width = 300;
-canvas.height = 300;
+canvas.width = 640;
+canvas.height = 480;
 var marioImage = new Image();
 marioImage.src = 'images/mario_wjlfy5_large.png';
+var rightPressed = false;
+var leftPressed = false;
+var marioLeft = false;
+var marioRight = true;
+
+
 document.addEventListener('keydown', keyDownHandler, false);
 document.addEventListener('keyup', keyUpHandler, false);
 // ctx.beginPath();
@@ -17,6 +23,23 @@ document.addEventListener('keyup', keyUpHandler, false);
 // ctx.fill();
 // ctx.closePath();
 
+function keyDownHandler(e) {
+    if (e.keyCode == 39) {
+        rightPressed = true;
+    }
+    else if (e.keyCode == 37) {
+        leftPressed = true;
+    }
+}
+
+function keyUpHandler(e) {
+    if (e.keyCode == 39) {
+        rightPressed = false;
+    }
+    else if (e.keyCode == 37) {
+        leftPressed = false;
+    }
+}
 
 
 function sprite (options) {
@@ -29,10 +52,12 @@ function sprite (options) {
     that.width = options.width;
     that.height = options.height;
     that.image = options.image;
+    that.x = options.x;
+    that.y = options.y;
 
     that.render = function () {
         // Clear the canvas
-        that.context.clearRect(0,0, that.width, that.height);
+        that.context.clearRect(that.x, that.y, that.width, that.height);
         // Draw the animation
         that.context.drawImage (
             that.image,
@@ -40,8 +65,8 @@ function sprite (options) {
             0,
             that.width / numberOfFrames,
             that.height,
-            0,
-            0,
+            that.x,
+            that.y,
             that.width / numberOfFrames,
             that.height);
     };
@@ -64,6 +89,15 @@ function sprite (options) {
             }
         }
     };
+    //Change 128 to relevant variable expression
+    that.move = function() {
+        if (rightPressed === true && that.x < canvas.width - 128) {
+            mario.x += 5;
+        }
+        else if (leftPressed === true && that.x > 0) {
+            mario.x -= 5;
+        }
+    };
 
     return that;
 }
@@ -75,7 +109,9 @@ var mario = sprite({
     height: 128,
     image: marioImage,
     numberOfFrames: 4,
-    ticksPerFrame: 8, 
+    ticksPerFrame: 8,
+    x: 20,
+    y: canvas.height - 148, 
 });
 
 function gameLoop () {
@@ -83,6 +119,7 @@ function gameLoop () {
 
     mario.update();
     mario.render();
+    mario.move()
 }
 marioImage.addEventListener('load', gameLoop);
 
