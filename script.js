@@ -13,11 +13,6 @@ var leftPressed = false;
 
 document.addEventListener('keydown', keyDownHandler, false);
 document.addEventListener('keyup', keyUpHandler, false);
-// ctx.beginPath();
-// ctx.rect(0,0, 10,10);
-// ctx.fillStyle = '#FF0000';
-// ctx.fill();
-// ctx.closePath();
 
 function keyDownHandler(e) {
     if (e.keyCode == 39) {
