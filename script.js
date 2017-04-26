@@ -9,6 +9,8 @@ canvas.width = 300;
 canvas.height = 300;
 var marioImage = new Image();
 marioImage.src = 'images/mario_wjlfy5_large.png';
+document.addEventListener('keydown', keyDownHandler, false);
+document.addEventListener('keyup', keyUpHandler, false);
 // ctx.beginPath();
 // ctx.rect(0,0, 10,10);
 // ctx.fillStyle = '#FF0000';
@@ -18,7 +20,7 @@ marioImage.src = 'images/mario_wjlfy5_large.png';
 
 
 function sprite (options) {
-    var that = {}, frameIndex = 0,
+    var that = {}, frameIndex = 1,
         tickCount = 0,
         ticksPerFrame = options.ticksPerFrame || 0,
         numberOfFrames = options.numberOfFrames || 1;
@@ -55,10 +57,10 @@ function sprite (options) {
                 frameIndex += 1;
             }
             else if (that.loop) {
-                frameIndex = 0;
+                frameIndex = 1;
             }
             else {
-                frameIndex = 0;
+                frameIndex = 1;
             }
         }
     };
@@ -73,7 +75,7 @@ var mario = sprite({
     height: 128,
     image: marioImage,
     numberOfFrames: 4,
-    ticksPerFrame: 4, 
+    ticksPerFrame: 8, 
 });
 
 function gameLoop () {
