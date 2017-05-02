@@ -21,7 +21,7 @@ var Character = function(x, y, h, w, c) {
   this.width = w;
   this.color = c;
   console.log("new Character!!");
-}
+};
 
 Character.prototype.draw = function() {
   ctx.beginPath();
@@ -29,7 +29,7 @@ Character.prototype.draw = function() {
   ctx.fillStyle = this.color;
   ctx.fill();
   ctx.closePath();
-}
+};
 
 var Peter = new Character(canvas.width/2, canvas.height/2, 20, 10, '#000000');
 

@@ -12,7 +12,7 @@
     this.size = size;
     this.x    = x;
     this.y    = y;
-  }
+  };
 
 
 }());

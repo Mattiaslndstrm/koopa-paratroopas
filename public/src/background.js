@@ -4,7 +4,7 @@
  * draws the background AND the foreground (stuff characters can walk on)
  *
 */
-'use strict'
+'use strict';
 
 // canvas
 var DOM = {};
@@ -42,7 +42,7 @@ var tile = function (context, column, row, image) {
   };
 
   return that;
-}
+};
 
 // var tiles = {
 //   "floor" : tile( ctx, 0, 0, landscape),
