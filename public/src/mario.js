@@ -1,3 +1,10 @@
+
+/**
+ * src/mario.js
+ *
+ * Creates the Mario object
+ *
+*/
 //The frames in the sprite sheet is 16x16px
 //mario_wjlfy5.png
 
@@ -7,7 +14,7 @@ var canvas = document.getElementById('game');
 canvas.width = 640;
 canvas.height = 480;
 var marioImage = new Image();
-marioImage.src = 'images/mario_wjlfy5_large.png';
+marioImage.src = 'assets/mario_wjlfy5_large.png';
 var rightPressed = false;
 var leftPressed = false;
 
@@ -163,6 +170,9 @@ function gameLoop () {
     mario.render();
     mario.move();
 }
+
+// marioImage.addEventListener('load', gameLoop());
 marioImage.addEventListener('load', gameLoop);
+
 
 };
