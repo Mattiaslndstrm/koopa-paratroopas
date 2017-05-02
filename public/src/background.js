@@ -74,8 +74,8 @@ var background = [
 'fffff   ffffffff'
 ];
 
-for (var i = 0; i <= 16; i++) {
-  for (var j = 0; j <= 16; j++) {
+for (var i = 0; i < 16; i++) {
+  for (var j = 0; j < 16; j++) {
     switch (background[i].substring(j,j+1)) {
     case 'f':
       floor_tile.render(j*16, i*16);
