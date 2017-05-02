@@ -1,3 +1,11 @@
+/**
+ * src/mario.js
+ *
+ * Creates the Mario object
+ *
+*/
+
+
 //The frames in the sprite sheet is 16x16px
 //mario_wjlfy5.png
 
