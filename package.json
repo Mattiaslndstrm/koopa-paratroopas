@@ -1,14 +1,27 @@
 {
-  "name": "tribute-page",
+  "name": "koopa-paratroopas",
   "version": "1.0.0",
-  "description": "Presents a tribute to a historic individual.  Created for Free Code Camp frontend curriculum.",
+  "description": "Clone of Super Mario Brothers",
   "main": "server.js",
   "scripts": {
     "test": "test",
     "start": "node server.js"
   },
-  "author": "Peter Martinson",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mattiaslndstrm/koopa-paratroopas.git"
+  },
+  "keywords": [
+    "game",
+    "canvas",
+    "mario"
+  ],
+  "author": "Mattias Lindstrom, Peter Martinson",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Mattiaslndstrm/koopa-paratroopas/issues"
+  },
+  "homepage": "https://github.com/Mattiaslndstrm/koopa-paratroopas#readme",
   "dependencies": {
     "body-parser": "^1.17.1",
     "express": "^4.15.2"
