@@ -15,7 +15,7 @@ var canvas = document.getElementById('game');
 canvas.width = 640;
 canvas.height = 480;
 var marioImage = new Image();
-marioImage.src = 'images/mario_wjlfy5_large.png';
+marioImage.src = 'assets/mario_wjlfy5_large.png';
 var rightPressed = false;
 var leftPressed = false;
 
@@ -165,12 +165,15 @@ var mario = sprite({
 });
 
 function gameLoop () {
+    console.log("inside gameloop");
     window.requestAnimationFrame(gameLoop);
 
     
     mario.render();
     mario.move();
 }
+// marioImage.addEventListener('load', gameLoop());
 marioImage.addEventListener('load', gameLoop);
+
 
 };

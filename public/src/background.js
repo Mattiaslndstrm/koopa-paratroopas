@@ -9,7 +9,7 @@
 // canvas
 var DOM = {};
 
-DOM.$canvas = document.getElementById("game-canvas");
+DOM.$canvas = document.getElementById("game");
 var ctx     = DOM.$canvas.getContext("2d");
 
 // new Image()
