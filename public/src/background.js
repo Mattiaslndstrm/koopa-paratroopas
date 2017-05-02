@@ -27,16 +27,18 @@ var tile = function (context, column, row, image) {
 
   // context.drawImage(img, sx, sy, sw, sh, dx, dy, dw, dh) s=source, d=destination
   that.render = function (x, y) {
-    that.context.drawImage(
-      that.image,
-      16 * that.column,
-      16 * that.row,
-      that.width,
-      that.height,
-      x,
-      y,
-      that.width,
-      that.height);
+    that.image.addEventListener('load', function() {// "window.onload"
+      that.context.drawImage(
+        that.image,
+        16 * that.column,
+        16 * that.row,
+        that.width,
+        that.height,
+        x,
+        y,
+        that.width,
+        that.height);
+    });
   };
 
   return that;
@@ -74,6 +76,7 @@ var background = [
 'fffff   ffffffff'
 ];
 
+
 for (var i = 0; i < 16; i++) {
   for (var j = 0; j < 16; j++) {
     switch (background[i].substring(j,j+1)) {
@@ -91,5 +94,4 @@ for (var i = 0; i < 16; i++) {
     }
   }
 }
-
 
