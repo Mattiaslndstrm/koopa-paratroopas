@@ -71,9 +71,11 @@ function sprite (options) {
     that.image = options.image;
     that.x = options.x;
     that.y = options.y;
-    that.xVelocity = options.xVelocity;
-    that.yVelocity = options.yVelocity;
+    that.velocityX = options.velocityX;
+    that.velocityY = options.velocityY;
     that.gravity = options.gravity;
+    that.collisionX = false;
+    that.collisionY = true;
     // that.left = options.left;
     // that.right = options.right;
     that.topIndex = options.topIndex;
@@ -151,22 +153,30 @@ function sprite (options) {
 
     that.jump = function() {
         frameIndex = 5;
+
+    };
+
+    that.collisionDetection = function() {
+        if (that.y <= canvas.height - 148) {
+            that.collisionY = true;
+        }
     };
     that.move = function() {
         if (rightPressed === true && that.x < canvas.width - that.width / numberOfFrames) {
-            that.x += that.xVelocity;
+            that.x += that.velocityX;
             that.runRight();
             // that.right = true;
             // that.left = false;
         }
         else if (leftPressed === true && that.x > 0) {
-            that.x -= that.xVelocity;
+            that.x -= that.velocityX;
             that.runLeft();
             // that.right = false;
             // that.left = true;
         }
 
         else if (upPressed === true) {
+            
             that.jump();
         }
         else  {
@@ -188,8 +198,9 @@ var mario = sprite({
     ticksPerFrame: 8,
     x: 20,
     y: canvas.height - 148,
-    xVelocity: 3,
-    yVelocity: 0,
+    velocityX: 3,
+    velocityY: 0,
+    gravity: 0.5,
     // right: true,
     // left: false,
 });
