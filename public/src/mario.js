@@ -172,14 +172,13 @@ function sprite (options) {
 
     that.moveY = function() {
         
-            that.velocityY += that.gravity;
-            that.y += that.velocityY;
+        that.velocityY += that.gravity;
+        that.y += that.velocityY;
 
         if (upPressed) {
             that.jump();
-            that.onground = false;
         }
-
+        // Jumping position
         if (upPressed || !that.onground){
             frameIndex = 5;
         }
