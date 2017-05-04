@@ -75,7 +75,7 @@ function sprite (options) {
     that.velocityY = options.velocityY;
     that.gravity = options.gravity;
     that.collisionX = false;
-    that.collisionY = true;
+    that.onground = true;
     // that.left = options.left;
     // that.right = options.right;
     that.topIndex = options.topIndex;
@@ -152,16 +152,35 @@ function sprite (options) {
     };
 
     that.jump = function() {
-        frameIndex = 5;
-
+        if (that.onground === true) {
+                that.velocityY = -8;
+                that.onground = false;
+            }
+        // if (upPressed || that.onground === false)
+        //     frameIndex = 5;
     };
 
     that.collisionDetection = function() {
         if (that.y <= canvas.height - 148) {
-            that.collisionY = true;
+            that.onground = true;
         }
     };
-    that.move = function() {
+
+    that.moveY = function() {
+        that.velocityY += that.gravity;
+        that.y += that.velocityY;
+
+        if (upPressed === true) {
+            that.jump();
+        }
+        // if (that.onground === true) {
+        //     that.velocityY = 0;
+        // }
+
+        
+    };
+
+    that.moveX = function() {
         if (rightPressed === true && that.x < canvas.width - that.width / numberOfFrames) {
             that.x += that.velocityX;
             that.runRight();
@@ -175,10 +194,6 @@ function sprite (options) {
             // that.left = true;
         }
 
-        else if (upPressed === true) {
-            
-            that.jump();
-        }
         else  {
             frameIndex = 0;
         }
@@ -201,6 +216,7 @@ var mario = sprite({
     velocityX: 3,
     velocityY: 0,
     gravity: 0.5,
+    onground: true,
     // right: true,
     // left: false,
 });
@@ -210,7 +226,9 @@ function gameLoop () {
 
     
     mario.render();
-    mario.move();
+    mario.moveX();
+    mario.moveY();
+    mario.collisionDetection();
 }
 
 // marioImage.addEventListener('load', gameLoop());
