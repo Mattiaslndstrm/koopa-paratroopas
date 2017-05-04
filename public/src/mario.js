@@ -43,7 +43,7 @@ function keyUpHandler(e) {
         leftPressed = false;
     }
     else if (e.keyCode == 38) {
-        upPressed = true;
+        upPressed = false;
     }
 }
 
@@ -61,6 +61,8 @@ function sprite (options) {
     that.image = options.image;
     that.x = options.x;
     that.y = options.y;
+    that.xVelocity = options.xVelocity;
+    that.yVelocity = options.yVelocity;
     // that.left = options.left;
     // that.right = options.right;
     that.topIndex = options.topIndex;
@@ -135,6 +137,10 @@ function sprite (options) {
         }
     
     };
+
+    that.jump = function() {
+        frameIndex = 5;
+    };
     that.move = function() {
         if (rightPressed === true && that.x < canvas.width - that.width / numberOfFrames) {
             that.x += 3;
@@ -147,6 +153,10 @@ function sprite (options) {
             that.runLeft();
             // that.right = false;
             // that.left = true;
+        }
+
+        else if (upPressed === true) {
+            that.jump();
         }
         else  {
             frameIndex = 0;
