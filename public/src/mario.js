@@ -59,6 +59,8 @@ function keyUpHandler(e) {
 
 
 function sprite (options) {
+    //Regarding that (jshint linter speaking): If a strict mode function is 
+    //executed using function invocation, its 'this' value will be undefined.
     var that = {}, 
         frameIndex = 0,
         tickCount = 0,
@@ -179,6 +181,8 @@ function sprite (options) {
             that.jump();
         }
         // Jumping position
+        // There is a bug here that makes Mario jump in standing position if 
+        // you press the up button for an extremely short duration
         if (upPressed || !that.onground){
             frameIndex = 5;
         }
@@ -222,7 +226,7 @@ var mario = sprite({
     ticksPerFrame: 8,
     x: 20,
     y: canvas.height - 148,
-    velocityX: 3,
+    velocityX: 5,
     velocityY: 0,
     gravity: 0.5,
     onground: true,
