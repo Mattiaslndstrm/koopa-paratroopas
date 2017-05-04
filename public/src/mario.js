@@ -159,6 +159,10 @@ function sprite (options) {
         
     };
 
+    // This works while Mario is only running on one vertical plane.
+    // My spontaneous suggestion is that we set a variable that updates when
+    // colliosion happens, and update that with the x-coordinates of the 
+    // object. No idea if it will work, but let's try it!
     that.collisionDetection = function() {
         if (that.y >= canvas.height - 148) {
             that.onground = true;
