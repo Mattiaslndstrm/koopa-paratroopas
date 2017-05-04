@@ -153,25 +153,31 @@ function sprite (options) {
 
     that.jump = function() {
         if (that.onground === true) {
-                that.velocityY = -8;
+                that.velocityY = -16;
                 that.onground = false;
             }
-        // if (upPressed || that.onground === false)
-        //     frameIndex = 5;
+        
     };
 
     that.collisionDetection = function() {
-        if (that.y <= canvas.height - 148) {
+        if (that.y >= canvas.height - 148) {
             that.onground = true;
+            that.y = canvas.height - 148;
         }
     };
 
     that.moveY = function() {
-        that.velocityY += that.gravity;
-        that.y += that.velocityY;
+        
+            that.velocityY += that.gravity;
+            that.y += that.velocityY;
 
         if (upPressed === true) {
             that.jump();
+            that.onground = false;
+        }
+
+        if (upPressed || !that.onground){
+            frameIndex = 5;
         }
         // if (that.onground === true) {
         //     that.velocityY = 0;
