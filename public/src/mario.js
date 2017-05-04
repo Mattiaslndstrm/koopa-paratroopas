@@ -152,7 +152,7 @@ function sprite (options) {
     };
 
     that.jump = function() {
-        if (that.onground === true) {
+        if (that.onground) {
                 that.velocityY = -16;
                 that.onground = false;
             }
@@ -171,7 +171,7 @@ function sprite (options) {
             that.velocityY += that.gravity;
             that.y += that.velocityY;
 
-        if (upPressed === true) {
+        if (upPressed) {
             that.jump();
             that.onground = false;
         }
@@ -179,7 +179,7 @@ function sprite (options) {
         if (upPressed || !that.onground){
             frameIndex = 5;
         }
-        // if (that.onground === true) {
+        // if (that.onground) {
         //     that.velocityY = 0;
         // }
 
@@ -187,13 +187,13 @@ function sprite (options) {
     };
 
     that.moveX = function() {
-        if (rightPressed === true && that.x < canvas.width - that.width / numberOfFrames) {
+        if (rightPressed && that.x < canvas.width - that.width / numberOfFrames) {
             that.x += that.velocityX;
             that.runRight();
             // that.right = true;
             // that.left = false;
         }
-        else if (leftPressed === true && that.x > 0) {
+        else if (leftPressed && that.x > 0) {
             that.x -= that.velocityX;
             that.runLeft();
             // that.right = false;
