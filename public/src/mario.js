@@ -7,6 +7,16 @@
 */
 //The frames in the sprite sheet is 16x16px
 //mario_wjlfy5.png
+        // context.drawImage(img, sx, sy, sw, sh, dx, dy, dw, dh)
+        // img Source image object     
+        // sx  Source x    
+        // sy  Source y   
+        // sw  Source width    
+        // sh  Source height   
+        // dx  Destination x   
+        // dy  Destination y   
+        // dw  Destination width   
+        // dh  Destination height  
 
 window.onload = function() {
 
@@ -63,6 +73,7 @@ function sprite (options) {
     that.y = options.y;
     that.xVelocity = options.xVelocity;
     that.yVelocity = options.yVelocity;
+    that.gravity = options.gravity;
     // that.left = options.left;
     // that.right = options.right;
     that.topIndex = options.topIndex;
@@ -143,13 +154,13 @@ function sprite (options) {
     };
     that.move = function() {
         if (rightPressed === true && that.x < canvas.width - that.width / numberOfFrames) {
-            that.x += xVelocity;
+            that.x += that.xVelocity;
             that.runRight();
             // that.right = true;
             // that.left = false;
         }
         else if (leftPressed === true && that.x > 0) {
-            that.x -= xVelocity;
+            that.x -= that.xVelocity;
             that.runLeft();
             // that.right = false;
             // that.left = true;
