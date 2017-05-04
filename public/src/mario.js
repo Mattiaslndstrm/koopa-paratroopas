@@ -1,4 +1,4 @@
-
+'use strict';
 /**
  * src/mario.js
  *
@@ -17,6 +17,7 @@ var marioImage = new Image();
 marioImage.src = 'assets/mario_wjlfy5_large.png';
 var rightPressed = false;
 var leftPressed = false;
+var upPressed = false;
 
 document.addEventListener('keydown', keyDownHandler, false);
 document.addEventListener('keyup', keyUpHandler, false);
@@ -28,6 +29,10 @@ function keyDownHandler(e) {
     else if (e.keyCode == 37) {
         leftPressed = true;
     }
+
+    else if (e.keyCode == 38) {
+        upPressed = true;
+    }
 }
 
 function keyUpHandler(e) {
@@ -36,6 +41,9 @@ function keyUpHandler(e) {
     }
     else if (e.keyCode == 37) {
         leftPressed = false;
+    }
+    else if (e.keyCode == 38) {
+        upPressed = true;
     }
 }
 
