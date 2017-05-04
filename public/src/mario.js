@@ -143,13 +143,13 @@ function sprite (options) {
     };
     that.move = function() {
         if (rightPressed === true && that.x < canvas.width - that.width / numberOfFrames) {
-            that.x += 3;
+            that.x += xVelocity;
             that.runRight();
             // that.right = true;
             // that.left = false;
         }
         else if (leftPressed === true && that.x > 0) {
-            that.x -= 3;
+            that.x -= xVelocity;
             that.runLeft();
             // that.right = false;
             // that.left = true;
@@ -176,7 +176,9 @@ var mario = sprite({
     numberOfFrames: 4,
     ticksPerFrame: 8,
     x: 20,
-    y: canvas.height - 148, 
+    y: canvas.height - 148,
+    xVelocity: 3,
+    yVelocity: 0,
     // right: true,
     // left: false,
 });
