@@ -43,6 +43,7 @@
 
   // Define the level geography
   var levels = [];
+
   levels.push({  // level 0, just so level one is index = 1
     background : [],
     foreground : [],
@@ -88,7 +89,6 @@
     ],
     when : "day"
   });
-  // =========== END LEVEL ===========
 
   // new Tile( 'f', x, y ) -> puts the tile down!
   function Tile (type, x, y) {
