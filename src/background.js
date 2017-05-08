@@ -4,29 +4,258 @@
  * draws the background AND the foreground (stuff characters can walk on)
  *
 */
-'use strict';
+(function() {
 
-// canvas
-var DOM = {};
+  'use strict';
 
-DOM.$canvas = document.getElementById("game");
-var ctx     = DOM.$canvas.getContext("2d");
+  // canvas
+  var DOM = {};
 
-// new Image()
-var landscape = new Image();
-landscape.src = "assets/landscape_tileset.png";
+  DOM.$canvas = document.getElementById("game");
+  DOM.$canvas.width  = 1280;
+  DOM.$canvas.height = 480;
+  var ctx     = DOM.$canvas.getContext("2d");
 
-var tile = function (context, column, row, image) {
-  var that = {}; // why not just use `this`?
-  that.context = context;
-  that.width   = 16;
-  that.height  = 16;
-  that.column  = column;
-  that.row     = row;
-  that.image   = image;
+  // new Image()
+  var landscape = new Image();
+  landscape.src = "assets/landscape_tileset.png";
 
-  // context.drawImage(img, sx, sy, sw, sh, dx, dy, dw, dh) s=source, d=destination
-  that.render = function (x, y) {
+  // new World(1) should draw the entire level on the screen
+  function World (level) {
+    return {
+      when : levels[level].when,
+      length : levels[level].foreground[0].length,
+      render : function() {
+        for (let i = 0; i < 16; i++) {
+          for (let j = 0; j < this.length; j++) {
+            Tile(levels[level].background[i].substring(j,j+1), j*16, i*16);
+          }
+        }
+        for (let i = 0; i < 16; i++) {
+          for (let j = 0; j < this.length; j++) {
+            Tile(levels[level].foreground[i].substring(j,j+1), j*16, i*16);
+          }
+        }
+      }
+    }
+  }
+
+
+  // Define the level geography
+  var levels = [];
+  levels.push({  // level 0, just so level one is index = 1
+    background : [],
+    foreground : [],
+    when       : 'day'
+  });
+  
+  levels.push({  // level 1
+    background : [
+    '                                                                          ',
+    '                                                                          ',
+    '                                                                          ',
+    '                                                                          ',
+    '    (***)                                                                 ',
+    '    {CCC}                                                                 ',
+    '           .                                                              ',
+    '                                    ..                                    ',
+    '                                    ..                                    ',
+    '                                    ..                                    ',
+    '     .   .....         O            ..              -                     ',
+    '                       o   ..       ..             /m`                    ',
+    '                 ..  0 t   ..    .....            /mMH`                   ',
+    '   q%p    q%%%p  ..  t t   ..    .....           /mMMMH`                  ',
+    '.........................................     ............................',
+    '.........................................     ............................'
+    ],
+    foreground : [
+    '                                                                          ',
+    '                                                                          ',
+    '                                                                          ',
+    '                                                                          ',
+    '                                                                          ',
+    '                                                                          ',
+    '           ?                                                              ',
+    '                                    []                                    ',
+    '                                    !|                                    ',
+    '                                    !|                                    ',
+    '     ?   B?B#B                      !|                                    ',
+    '                           []       !|                                    ',
+    '                 []        !|    ^==J|                                    ',
+    '                 !|        !|    v__7|                                    ',
+    'ffffffffffffffffffffffffffffffffffff!|fff chr ffffffffffffffffffffffffffff',
+    'ffffffffffffffffffffffffffffffffffff!|fff     ffffffffffffffffffffffffffff'
+    ],
+    when : "day"
+  });
+  // =========== END LEVEL ===========
+
+  // new Tile( 'f', x, y ) -> puts the tile down!
+  function Tile (type, x, y) {
+    var that = {};
+    that.context = ctx;
+    that.image   = landscape;
+    that.width   = 16;
+    that.height  = 16;
+
+    switch (type) {
+      case 'f':// floor tile
+        that.column = 0;
+        that.row    = 0;
+        break;
+      case 'B':// top brick
+        that.column = 1;
+        that.row    = 0;
+        break;
+      case 'b':// normal brick
+        that.column = 2;
+        that.row    = 0;
+        break;
+      case '#':// dead question block
+        that.column = 3;
+        that.row    = 0;
+        break;
+      case '?':// question block
+        that.column = 24;
+        that.row    = 0;
+        break;
+      case 'h':// hard block
+        that.column = 0;
+        that.row    = 1;
+        break;
+      case 'r':// rock block
+        that.column = 1;
+        that.row    = 1;
+        break;
+      case 'c':// castle block
+        that.column = 2;
+        that.row    = 1;
+        break;
+      case 't':// tree trunk
+        that.column = 7;
+        that.row    = 1;
+        break;
+      case '[':// vertical pipe spout, left
+        that.column = 0;
+        that.row    = 8;
+        break;
+      case ']':// vertical pipe spout, right
+        that.column = 1;
+        that.row    = 8;
+        break;
+      case '^':// horizontal pipe spout, top
+        that.column = 2;
+        that.row    = 8;
+        break;
+      case '=':// horizontal pipe, top
+        that.column = 3;
+        that.row    = 8;
+        break;
+      case 'J':// pipe junction, top
+        that.column = 4;
+        that.row    = 8;
+        break;
+      case '!':// vertical pipe, left
+        that.column = 0;
+        that.row    = 9;
+        break;
+      case '|':// vertical pipe, right
+        that.column = 1;
+        that.row    = 9;
+        break;
+      case 'v':// horizontal pipe spout, bottom
+        that.column = 2;
+        that.row    = 9;
+        break;
+      case '_':// horizontal pipe, bottom
+        that.column = 3;
+        that.row    = 9;
+        break;
+      case '7':// pipe junction, bottom
+        that.column = 4;
+        that.row    = 9;
+        break;
+      case '/':// hill slope, left
+        that.column = 8;
+        that.row    = 10;
+        break;
+      case '-':// hill top
+        that.column = 9;
+        that.row    = 10;
+        break;
+      case '`':// hill slope, right
+        that.column = 10;
+        that.row    = 10;
+        break;
+      case 'm':// hill, dots left
+        that.column = 8;
+        that.row    = 11;
+        break;
+      case 'M':// hill
+        that.column = 9;
+        that.row    = 11;
+        break;
+      case 'H':// hill, dots right
+        that.column = 10;
+        that.row    = 11;
+        break;
+      case '0':// small tree
+        that.column = 13;
+        that.row    = 8;
+        break;
+      case 'O':// large tree, top
+        that.column = 14;
+        that.row    = 8;
+        break;
+      case 'o':// large tree, bottom
+        that.column = 14;
+        that.row    = 9;
+        break;
+      case 'q':// bush left
+        that.column = 11;
+        that.row    = 11;
+        break;
+      case '%':// bush center
+        that.column = 12;
+        that.row    = 11;
+        break;
+      case 'p':// bush right
+        that.column = 13;
+        that.row    = 11;
+        break;
+      case '(':// cloud top, left
+        that.column = 0;
+        that.row    = 22;
+        break;
+      case '*':// cloud top, center
+        that.column = 1;
+        that.row    = 22;
+        break;
+      case ')':// cloud top, right
+        that.column = 2;
+        that.row    = 22;
+        break;
+      case '{':// cloud bottom, left
+        that.column = 0;
+        that.row    = 23;
+        break;
+      case 'C':// cloud bottom, center
+        that.column = 1;
+        that.row    = 23;
+        break;
+      case '}':// cloud bottom, right
+        that.column = 2;
+        that.row    = 23;
+        break;
+      case '.':// do nothing!  placeholder
+        break;
+      default:
+        that.column = 29;
+        that.row    = 0;
+        break;
+    }
+
+    // render the tile
     that.image.addEventListener('load', function() {// "window.onload"
       that.context.drawImage(
         that.image,
@@ -39,59 +268,11 @@ var tile = function (context, column, row, image) {
         that.width,
         that.height);
     });
-  };
 
-  return that;
-};
-
-// var tiles = {
-//   "floor" : tile( ctx, 0, 0, landscape),
-//   "brick" : tile( ctx, 1, 0, landscape),
-//   "question" : tile( ctx, 24, 0, landscape)
-// }
-
-var floor_tile = tile( ctx, 0, 0, landscape);
-var brick_tile = tile( ctx, 1, 0, landscape);
-var question_tile = tile( ctx, 24, 0, landscape);
-// context.drawImage
-
-// render -> drawImage
-
-var background = [
-'                ',
-'                ',
-'                ',
-'                ',
-'                ',
-'                ',
-'                ',
-'                ',
-'                ',
-'     bb?b?bb    ',
-'                ',
-'                ',
-'                ',
-'                ',
-'fffff   ffffffff',
-'fffff   ffffffff'
-];
-
-
-for (var i = 0; i < 16; i++) {
-  for (var j = 0; j < 16; j++) {
-    switch (background[i].substring(j,j+1)) {
-    case 'f':
-      floor_tile.render(j*16, i*16);
-      break;
-    case 'b':
-      brick_tile.render(j*16, i*16);
-      break;
-    case '?':
-      question_tile.render(j*16, i*16);
-      break;
-    default:
-      break;
-    }
   }
-}
 
+  var level_1 = new World(1);
+  level_1.render();
+
+
+}());
