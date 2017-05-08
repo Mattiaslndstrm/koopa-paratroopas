@@ -4,6 +4,9 @@
  * draws the background AND the foreground (stuff characters can walk on)
  *
 */
+
+/*jshint esversion: 6 */
+
 (function() {
 
   'use strict';
@@ -20,13 +23,18 @@
   var landscape = new Image();
   landscape.src = "assets/landscape_tileset.png";
 
-  // new Tile( 'f', x, y ) puts the tile down!
+  // ================  CONSTRUCTORS =======================
+
+  /**
+   * Draws a game tile
+   * @constructor
+   * @param {string} type - letter that represents tile
+   * @param {int}    x - horizontal position on canvas
+   * @param {int}    y - vertical position on canvas
+  */
   function Tile (type, x, y) {
     var image   = landscape,
-        width   = 16,
-        height  = 16,
         column, row;
-
     switch (type) {
       case 'f':// floor tile
         column = 0;
@@ -183,24 +191,17 @@
         row    = 0;
         break;
     }
-
     // render the tile
     image.addEventListener('load', function() {// "window.onload"
-      ctx.drawImage(
-        image,
-        16 * column,
-        16 * row,
-        width,
-        height,
-        x,
-        y,
-        width,
-        height);
+      ctx.drawImage( image, 16 * column, 16 * row, 16, 16, x, y, 16, 16);
     });
-
   }
 
-  // ============= Define the World
+  /**
+   * draws the game world
+   * @constructor
+   * @param {int} level - index of levels array
+  */
   function World (level) {
     return {
       when   : levels[level].when,
@@ -217,10 +218,10 @@
           }
         }
       }
-    }
+    };
   }
 
-  // ============= Define the level geography
+  // ============= Define the level geography =============
   var levels = [];
 
   levels.push({  // level 0, just so level one is index = 1
@@ -297,12 +298,13 @@
     '                           []       !|                                  !|',
     '                 []        !|    ^==J|                                  !|',
     '                 !|        !|    v__7|                                  !|',
-    'ffffffffffffffffffffffffffffffffffff!|fff chr ffffffffffffffffffffffffff!|',
+    'ffffffffffffffffffffffffffffffffffff!|fff     ffffffffffffffffffffffffff!|',
     'ffffffffffffffffffffffffffffffffffff!|fff     ffffffffffffffffffffffffff!|'
     ],
     when : "day"
   });
 
+  // =================  DRAW WORLD ========================
   var level_0 = new World(0);
   var level_1 = new World(1);
   level_1.render();
