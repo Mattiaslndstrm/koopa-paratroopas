@@ -20,33 +20,246 @@
   var landscape = new Image();
   landscape.src = "assets/landscape_tileset.png";
 
-  // new World(1) should draw the entire level on the screen
+  // new Tile( 'f', x, y ) puts the tile down!
+  function Tile (type, x, y) {
+    var image   = landscape,
+        width   = 16,
+        height  = 16,
+        column, row;
+
+    switch (type) {
+      case 'f':// floor tile
+        column = 0;
+        row    = 0;
+        break;
+      case 'B':// top brick
+        column = 1;
+        row    = 0;
+        break;
+      case 'b':// normal brick
+        column = 2;
+        row    = 0;
+        break;
+      case '#':// dead question block
+        column = 3;
+        row    = 0;
+        break;
+      case '?':// question block
+        column = 24;
+        row    = 0;
+        break;
+      case 'h':// hard block
+        column = 0;
+        row    = 1;
+        break;
+      case 'r':// rock block
+        column = 1;
+        row    = 1;
+        break;
+      case 'c':// castle block
+        column = 2;
+        row    = 1;
+        break;
+      case 't':// tree trunk
+        column = 7;
+        row    = 1;
+        break;
+      case '[':// vertical pipe spout, left
+        column = 0;
+        row    = 8;
+        break;
+      case ']':// vertical pipe spout, right
+        column = 1;
+        row    = 8;
+        break;
+      case '^':// horizontal pipe spout, top
+        column = 2;
+        row    = 8;
+        break;
+      case '=':// horizontal pipe, top
+        column = 3;
+        row    = 8;
+        break;
+      case 'J':// pipe junction, top
+        column = 4;
+        row    = 8;
+        break;
+      case '!':// vertical pipe, left
+        column = 0;
+        row    = 9;
+        break;
+      case '|':// vertical pipe, right
+        column = 1;
+        row    = 9;
+        break;
+      case 'v':// horizontal pipe spout, bottom
+        column = 2;
+        row    = 9;
+        break;
+      case '_':// horizontal pipe, bottom
+        column = 3;
+        row    = 9;
+        break;
+      case '7':// pipe junction, bottom
+        column = 4;
+        row    = 9;
+        break;
+      case '/':// hill slope, left
+        column = 8;
+        row    = 10;
+        break;
+      case '-':// hill top
+        column = 9;
+        row    = 10;
+        break;
+      case '`':// hill slope, right
+        column = 10;
+        row    = 10;
+        break;
+      case 'm':// hill, dots left
+        column = 8;
+        row    = 11;
+        break;
+      case 'M':// hill
+        column = 9;
+        row    = 11;
+        break;
+      case 'H':// hill, dots right
+        column = 10;
+        row    = 11;
+        break;
+      case '0':// small tree
+        column = 13;
+        row    = 8;
+        break;
+      case 'O':// large tree, top
+        column = 14;
+        row    = 8;
+        break;
+      case 'o':// large tree, bottom
+        column = 14;
+        row    = 9;
+        break;
+      case 'q':// bush left
+        column = 11;
+        row    = 11;
+        break;
+      case '%':// bush center
+        column = 12;
+        row    = 11;
+        break;
+      case 'p':// bush right
+        column = 13;
+        row    = 11;
+        break;
+      case '(':// cloud top, left
+        column = 0;
+        row    = 22;
+        break;
+      case '*':// cloud top, center
+        column = 1;
+        row    = 22;
+        break;
+      case ')':// cloud top, right
+        column = 2;
+        row    = 22;
+        break;
+      case '{':// cloud bottom, left
+        column = 0;
+        row    = 23;
+        break;
+      case 'C':// cloud bottom, center
+        column = 1;
+        row    = 23;
+        break;
+      case '}':// cloud bottom, right
+        column = 2;
+        row    = 23;
+        break;
+      case '.':// do nothing!  placeholder
+        break;
+      default:
+        column = 29;
+        row    = 0;
+        break;
+    }
+
+    // render the tile
+    image.addEventListener('load', function() {// "window.onload"
+      ctx.drawImage(
+        image,
+        16 * column,
+        16 * row,
+        width,
+        height,
+        x,
+        y,
+        width,
+        height);
+    });
+
+  }
+
+  // ============= Define the World
   function World (level) {
     return {
-      when : levels[level].when,
+      when   : levels[level].when,
       length : levels[level].foreground[0].length,
       render : function() {
-        for (let i = 0; i < 16; i++) {
-          for (let j = 0; j < this.length; j++) {
-            Tile(levels[level].background[i].substring(j,j+1), j*16, i*16);
+        for (let vert = 0; vert < 16; vert++) {
+          for (let horiz = 0; horiz < this.length; horiz++) {
+            Tile(levels[level].background[vert].substring(horiz,horiz+1), horiz*16, vert*16);
           }
         }
-        for (let i = 0; i < 16; i++) {
-          for (let j = 0; j < this.length; j++) {
-            Tile(levels[level].foreground[i].substring(j,j+1), j*16, i*16);
+        for (let vert = 0; vert < 16; vert++) {
+          for (let horiz = 0; horiz < this.length; horiz++) {
+            Tile(levels[level].foreground[vert].substring(horiz,horiz+1), horiz*16, vert*16);
           }
         }
       }
     }
   }
 
-
-  // Define the level geography
+  // ============= Define the level geography
   var levels = [];
 
   levels.push({  // level 0, just so level one is index = 1
-    background : [],
-    foreground : [],
+    background : [
+    '                  ',
+    '                  ',
+    '                  ',
+    '                  ',
+    '                  ',
+    '                  ',
+    '                  ',
+    '                  ',
+    '                  ',
+    '                  ',
+    '                  ',
+    '        ..        ',
+    '        ..        ',
+    '        ..        ',
+    '..................',
+    '..................'
+    ],
+    foreground : [
+    '                  ',
+    '                  ',
+    '                  ',
+    '                  ',
+    '                  ',
+    '                  ',
+    '                  ',
+    '                  ',
+    '                  ',
+    '                  ',
+    '                  ',
+    '        []        ',
+    '        !|        ',
+    '        !|        ',
+    'ffffffff!|ffffffff',
+    'ffffffff!|ffffffff'
+    ],
     when       : 'day'
   });
   
@@ -70,207 +283,27 @@
     '.........................................     ............................'
     ],
     foreground : [
-    '                                                                          ',
-    '                                                                          ',
-    '                                                                          ',
-    '                                                                          ',
-    '                                                                          ',
-    '                                                                          ',
-    '           ?                                                              ',
-    '                                    []                                    ',
-    '                                    !|                                    ',
-    '                                    !|                                    ',
-    '     ?   B?B#B                      !|                                    ',
-    '                           []       !|                                    ',
-    '                 []        !|    ^==J|                                    ',
-    '                 !|        !|    v__7|                                    ',
-    'ffffffffffffffffffffffffffffffffffff!|fff chr ffffffffffffffffffffffffffff',
-    'ffffffffffffffffffffffffffffffffffff!|fff     ffffffffffffffffffffffffffff'
+    '                                                                        []',
+    '                                                                        !|',
+    '                                                                        !|',
+    '                                                                        !|',
+    '                                                                        !|',
+    '                                                                        !|',
+    '           ?                                                            !|',
+    '                                    []                                  !|',
+    '                                    !|                                  !|',
+    '                                    !|                                  !|',
+    '     ?   B?B#B                      !|                                  !|',
+    '                           []       !|                                  !|',
+    '                 []        !|    ^==J|                                  !|',
+    '                 !|        !|    v__7|                                  !|',
+    'ffffffffffffffffffffffffffffffffffff!|fff chr ffffffffffffffffffffffffff!|',
+    'ffffffffffffffffffffffffffffffffffff!|fff     ffffffffffffffffffffffffff!|'
     ],
     when : "day"
   });
 
-  // new Tile( 'f', x, y ) -> puts the tile down!
-  function Tile (type, x, y) {
-    var that = {};
-    that.context = ctx;
-    that.image   = landscape;
-    that.width   = 16;
-    that.height  = 16;
-
-    switch (type) {
-      case 'f':// floor tile
-        that.column = 0;
-        that.row    = 0;
-        break;
-      case 'B':// top brick
-        that.column = 1;
-        that.row    = 0;
-        break;
-      case 'b':// normal brick
-        that.column = 2;
-        that.row    = 0;
-        break;
-      case '#':// dead question block
-        that.column = 3;
-        that.row    = 0;
-        break;
-      case '?':// question block
-        that.column = 24;
-        that.row    = 0;
-        break;
-      case 'h':// hard block
-        that.column = 0;
-        that.row    = 1;
-        break;
-      case 'r':// rock block
-        that.column = 1;
-        that.row    = 1;
-        break;
-      case 'c':// castle block
-        that.column = 2;
-        that.row    = 1;
-        break;
-      case 't':// tree trunk
-        that.column = 7;
-        that.row    = 1;
-        break;
-      case '[':// vertical pipe spout, left
-        that.column = 0;
-        that.row    = 8;
-        break;
-      case ']':// vertical pipe spout, right
-        that.column = 1;
-        that.row    = 8;
-        break;
-      case '^':// horizontal pipe spout, top
-        that.column = 2;
-        that.row    = 8;
-        break;
-      case '=':// horizontal pipe, top
-        that.column = 3;
-        that.row    = 8;
-        break;
-      case 'J':// pipe junction, top
-        that.column = 4;
-        that.row    = 8;
-        break;
-      case '!':// vertical pipe, left
-        that.column = 0;
-        that.row    = 9;
-        break;
-      case '|':// vertical pipe, right
-        that.column = 1;
-        that.row    = 9;
-        break;
-      case 'v':// horizontal pipe spout, bottom
-        that.column = 2;
-        that.row    = 9;
-        break;
-      case '_':// horizontal pipe, bottom
-        that.column = 3;
-        that.row    = 9;
-        break;
-      case '7':// pipe junction, bottom
-        that.column = 4;
-        that.row    = 9;
-        break;
-      case '/':// hill slope, left
-        that.column = 8;
-        that.row    = 10;
-        break;
-      case '-':// hill top
-        that.column = 9;
-        that.row    = 10;
-        break;
-      case '`':// hill slope, right
-        that.column = 10;
-        that.row    = 10;
-        break;
-      case 'm':// hill, dots left
-        that.column = 8;
-        that.row    = 11;
-        break;
-      case 'M':// hill
-        that.column = 9;
-        that.row    = 11;
-        break;
-      case 'H':// hill, dots right
-        that.column = 10;
-        that.row    = 11;
-        break;
-      case '0':// small tree
-        that.column = 13;
-        that.row    = 8;
-        break;
-      case 'O':// large tree, top
-        that.column = 14;
-        that.row    = 8;
-        break;
-      case 'o':// large tree, bottom
-        that.column = 14;
-        that.row    = 9;
-        break;
-      case 'q':// bush left
-        that.column = 11;
-        that.row    = 11;
-        break;
-      case '%':// bush center
-        that.column = 12;
-        that.row    = 11;
-        break;
-      case 'p':// bush right
-        that.column = 13;
-        that.row    = 11;
-        break;
-      case '(':// cloud top, left
-        that.column = 0;
-        that.row    = 22;
-        break;
-      case '*':// cloud top, center
-        that.column = 1;
-        that.row    = 22;
-        break;
-      case ')':// cloud top, right
-        that.column = 2;
-        that.row    = 22;
-        break;
-      case '{':// cloud bottom, left
-        that.column = 0;
-        that.row    = 23;
-        break;
-      case 'C':// cloud bottom, center
-        that.column = 1;
-        that.row    = 23;
-        break;
-      case '}':// cloud bottom, right
-        that.column = 2;
-        that.row    = 23;
-        break;
-      case '.':// do nothing!  placeholder
-        break;
-      default:
-        that.column = 29;
-        that.row    = 0;
-        break;
-    }
-
-    // render the tile
-    that.image.addEventListener('load', function() {// "window.onload"
-      that.context.drawImage(
-        that.image,
-        16 * that.column,
-        16 * that.row,
-        that.width,
-        that.height,
-        x,
-        y,
-        that.width,
-        that.height);
-    });
-
-  }
-
+  var level_0 = new World(0);
   var level_1 = new World(1);
   level_1.render();
 
