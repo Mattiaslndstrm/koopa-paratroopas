@@ -22,7 +22,7 @@
   // new Image()
   var landscape = new Image();
   landscape.src = "assets/landscape_tileset.png";
-
+//#6B8CFF
   // ================  CONSTRUCTORS =======================
 
   /**
@@ -203,10 +203,28 @@
    * @param {int} level - index of levels array
   */
   function World (level) {
+    var background_color;
+    switch (levels[level].when) {
+      case 'day':
+        background_color = '#6B8CFF';
+        break;
+      case 'night':
+        background_color = '#000000';
+        break;
+      default:
+        background_color = '#ffffff';
+        break;
+    }
     return {
       when   : levels[level].when,
       length : levels[level].foreground[0].length,
       render : function() {
+        // draw background color rectangle
+        ctx.beginPath();
+        ctx.rect(0, 0, DOM.$canvas.width, DOM.$canvas.height);
+        ctx.fillStyle = background_color;
+        ctx.fill();
+        ctx.closePath();
         for (let vert = 0; vert < 16; vert++) {
           for (let horiz = 0; horiz < this.length; horiz++) {
             Tile(levels[level].background[vert].substring(horiz,horiz+1), horiz*16, vert*16);
@@ -261,9 +279,9 @@
     'ffffffff!|ffffffff',
     'ffffffff!|ffffffff'
     ],
-    when       : 'day'
+    when       : 'night'
   });
-  
+
   levels.push({  // level 1
     background : [
     '                                                                          ',
@@ -291,9 +309,9 @@
     '                                                                        !|',
     '                                                                        !|',
     '           ?                                                            !|',
+    '                                                                        !|',
+    '                                                                        !|',
     '                                    []                                  !|',
-    '                                    !|                                  !|',
-    '                                    !|                                  !|',
     '     ?   B?B#B                      !|                                  !|',
     '                           []       !|                                  !|',
     '                 []        !|    ^==J|                                  !|',
