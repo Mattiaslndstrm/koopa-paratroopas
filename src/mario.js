@@ -24,7 +24,7 @@ var canvas = document.getElementById('game');
 canvas.width = 640;
 canvas.height = 480;
 var marioImage = new Image();
-marioImage.src = 'assets/mario_wjlfy5_large.png';
+marioImage.src = 'assets/mario_wjlfy5.png';
 var rightPressed = false;
 var leftPressed = false;
 var upPressed = false;
@@ -136,7 +136,7 @@ function sprite (options) {
 
     that.runLeft = function() {
         tickCount += 1;
-        that.topIndex = 128;
+        that.topIndex = 16;
 
         if (tickCount > ticksPerFrame) {
             tickCount = 0;
@@ -218,15 +218,15 @@ function sprite (options) {
 
 var mario = sprite({
     context: canvas.getContext('2d'),
-    width: 512,
-    height: 128,
+    width: 64,
+    height: 16,
     topIndex: 0,
     image: marioImage,
     numberOfFrames: 4,
     ticksPerFrame: 8,
     x: 20,
     y: canvas.height - 148,
-    velocityX: 5,
+    velocityX: 2,
     velocityY: 0,
     gravity: 0.5,
     onground: true,
