@@ -33,21 +33,22 @@ foreground = [
         }
         
     }   
+console.log(coordinates);
 
-    var coordinates2 = foreground.map(function(a) {
-        var now = foreground.indexOf(a);
-        var co = {};
-        co.y = now*16;
-        return a.split('').map(function(b) {
-            if (b != ' ') {
-                var now2 = foreground[now].indexOf(b);
-                co.type = foreground[now][now2];
-                co.x = now2 * 16;
-                return co;
-            }
-        });
-    });
+//     var coordinates2 = foreground.map(function(a) {
+//         var now = foreground.indexOf(a);
+//         var co = {};
+//         co.y = now*16;
+//         return a.split('').map(function(b) {
+//             if (b != ' ') {
+//                 var now2 = foreground[now].indexOf(b);
+//                 co.type = foreground[now][now2];
+//                 co.x = now2 * 16;
+//                 return co;
+//             }
+//         });
+//     });
 
-coordinates3 = coordinates2.filter(Boolean)
+// coordinates3 = coordinates2.filter(Boolean)
 
-    console.log(coordinates)
+
