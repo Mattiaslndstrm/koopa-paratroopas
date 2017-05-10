@@ -183,7 +183,8 @@ function sprite (options) {
         }
         // Jumping position
         // There is a bug here that makes Mario jump in standing position if 
-        // you press the up button for an extremely short duration
+        // you press the up button for an extremely short duration. We can call 
+        // it a hidden feature!
         if (upPressed || !that.onground){
             frameIndex = 5;
         }
