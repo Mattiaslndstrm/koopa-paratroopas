@@ -81,6 +81,7 @@ function sprite (options) {
     // that.left = options.left;
     // that.right = options.right;
     that.topIndex = options.topIndex;
+    that.jumpHeight = options.jumpHeight;
 
     that.render = function () {
         // Clear the canvas
@@ -155,7 +156,7 @@ function sprite (options) {
 
     that.jump = function() {
         if (that.onground) {
-                that.velocityY = -16;
+                that.velocityY = + that.jumpHeight;
                 that.onground = false;
             }
         
@@ -226,10 +227,11 @@ var mario = sprite({
     ticksPerFrame: 8,
     x: 20,
     y: canvas.height - 148,
-    velocityX: 2,
+    velocityX: 1.5,
     velocityY: 0,
-    gravity: 0.5,
+    gravity: 0.3,
     onground: true,
+    jumpHeight: -8,
     // right: true,
     // left: false,
 });
