@@ -24,7 +24,7 @@ var canvas = document.getElementById('game');
 canvas.width = 640;
 canvas.height = 480;
 var marioImage = new Image();
-marioImage.src = 'assets/mario_wjlfy5_large.png';
+marioImage.src = 'assets/mario_wjlfy5.png';
 var rightPressed = false;
 var leftPressed = false;
 var upPressed = false;
@@ -81,6 +81,7 @@ function sprite (options) {
     // that.left = options.left;
     // that.right = options.right;
     that.topIndex = options.topIndex;
+    that.jumpHeight = options.jumpHeight;
 
     that.render = function () {
         // Clear the canvas
@@ -136,7 +137,7 @@ function sprite (options) {
 
     that.runLeft = function() {
         tickCount += 1;
-        that.topIndex = 128;
+        that.topIndex = 16;
 
         if (tickCount > ticksPerFrame) {
             tickCount = 0;
@@ -155,7 +156,7 @@ function sprite (options) {
 
     that.jump = function() {
         if (that.onground) {
-                that.velocityY = -16;
+                that.velocityY = + that.jumpHeight;
                 that.onground = false;
             }
         
@@ -182,7 +183,8 @@ function sprite (options) {
         }
         // Jumping position
         // There is a bug here that makes Mario jump in standing position if 
-        // you press the up button for an extremely short duration
+        // you press the up button for an extremely short duration. We can call 
+        // it a hidden feature!
         if (upPressed || !that.onground){
             frameIndex = 5;
         }
@@ -218,18 +220,19 @@ function sprite (options) {
 
 var mario = sprite({
     context: canvas.getContext('2d'),
-    width: 512,
-    height: 128,
+    width: 64,
+    height: 16,
     topIndex: 0,
     image: marioImage,
     numberOfFrames: 4,
     ticksPerFrame: 8,
     x: 20,
     y: canvas.height - 148,
-    velocityX: 5,
+    velocityX: 1.5,
     velocityY: 0,
-    gravity: 0.5,
+    gravity: 0.3,
     onground: true,
+    jumpHeight: -8,
     // right: true,
     // left: false,
 });
