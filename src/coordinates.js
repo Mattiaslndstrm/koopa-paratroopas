@@ -18,22 +18,21 @@ foreground = [
     ];
 
     var coordinates = [];
-    var y = 0;
+    
     for (var f = 0; f < foreground.length; f++) {
-        var x = 0;
         for (var g = 0; g < foreground[f].length; g++) {
             var now = foreground[f][g];
             var co = {};
             if (now != ' ') {
                 co.type = now;
-                co.y = y;
-                co.x = x;
+                co.y = f *16;
+                co.x = g *16;
                 coordinates.push(co);
             }
-            x += 16;
+            
         }
-        y += 16;
-    }
+        
+    }   
 
     var coordinates2 = foreground.map(function(a) {
         var now = foreground.indexOf(a);
@@ -49,6 +48,6 @@ foreground = [
         });
     });
 
+coordinates3 = coordinates2.filter(Boolean)
 
-
-    console.log(coordinates2.filter(x => x != undefined))
+    console.log(coordinates)
