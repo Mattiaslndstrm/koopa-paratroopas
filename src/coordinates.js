@@ -17,11 +17,11 @@ foreground = [
     'fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff  fffffffffffffffff   fffffff!|'
     ];
 
+function coFromForeground(arr) {
     var coordinates = [];
-    
-    for (var f = 0; f < foreground.length; f++) {
-        for (var g = 0; g < foreground[f].length; g++) {
-            var now = foreground[f][g];
+    for (var f = 0; f < arr.length; f++) {
+        for (var g = 0; g < arr[f].length; g++) {
+            var now = arr[f][g];
             var co = {};
             if (now != ' ') {
                 co.type = now;
@@ -32,7 +32,9 @@ foreground = [
             
         }
         
-    }   
+    }
+    return coordinates;
+}  
 console.log(coordinates);
 
 //     var coordinates2 = foreground.map(function(a) {
