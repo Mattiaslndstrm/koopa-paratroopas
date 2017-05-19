@@ -1,36 +1,41 @@
 /**
  * src/game.js
  *
- * Draws the game board, each time tick
+ * Contains all game logic (points, positions of characters, etc.)
  *
 */
 
-(function() {
+
+var Game = (function() {
+  
   'use strict';
 
-  window.onload = function() {
+  var DOM = {},
+      ctx;
 
-    var canvas = document.getElementById('game');
-    canvas.width = 1280;
-    canvas.height = 480;
+  function cacheDOM() {
+    DOM.canvas = document.getElementById('game-board');
+  }
 
-    var landscape = new Image();
-    landscape.src = "assets/landscape_tileset.png";
-    landscape.addEventListener('load', console.log("landscape just loaded"));
+  var Henry = new Monster(10, DOM.canvas.width/2, DOM.canvas.height/2);
 
-    function gameLoop () {
-        console.log("inside game loop");
-        level_1.render();
-    //     window.requestAnimationFrame(gameLoop);
-        // mario.render();
-        // mario.moveX();
-        // mario.moveY();
-        // mario.collisionDetection();
-    }
-    // marioImage.addEventListener('load', gameLoop);
-    landscape.addEventListener('load', gameLoop);
+  function render() {
+    ctx = DOM.canvas.getContext("2d");
+  }
 
 
-  };
+
+
+
+  function init() {
+    cacheDOM();
+    addBackground();
+    addGame();
+    addMario();
+  }
+
+
+  return { init : init };
+
 
 }());

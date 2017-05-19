@@ -15,15 +15,14 @@
   var DOM = {};
 
   DOM.$canvas = document.getElementById("game");
-  // DOM.$canvas.width  = 1280;
-  // DOM.$canvas.height = 480;
+  DOM.$canvas.width  = 1280;
+  DOM.$canvas.height = 480;
   var ctx     = DOM.$canvas.getContext("2d");
 
   // new Image()
-  // var landscape = new Image();
-  // landscape.src = "assets/landscape_tileset.png";
-  // landscape.addEventListener('load', console.log("landscape just loaded"));
-
+  var landscape = new Image();
+  landscape.src = "assets/landscape_tileset.png";
+//#6B8CFF
   // ================  CONSTRUCTORS =======================
 
   /**
@@ -326,7 +325,7 @@
   // =================  DRAW WORLD ========================
   var level_0 = new World(0);
   var level_1 = new World(1);
-  // level_1.render();
+  level_1.render();
 
 
 }());
