@@ -6,36 +6,19 @@
 */
 
 
-var Game = (function() {
+(function() {
   
   'use strict';
-
-  var DOM = {},
-      ctx;
-
-  function cacheDOM() {
-    DOM.canvas = document.getElementById('game-board');
-  }
-
-  var Henry = new Monster(10, DOM.canvas.width/2, DOM.canvas.height/2);
-
-  function render() {
-    ctx = DOM.canvas.getContext("2d");
-  }
-
-
-
-
+  
+  var canvas = {};
 
   function init() {
-    cacheDOM();
-    addBackground();
-    addGame();
-    addMario();
+    canvas = document.getElementById('game');
+    canvas.width = 640;
+    canvas.height = 480;
+    window.canvas = canvas;
   }
 
-
-  return { init : init };
-
+  init();
 
 }());
