@@ -4,6 +4,8 @@
  * Object constructor for all sprites
 */
 
+// ISSUE: at no point do you check whether the spritesheet is loaded!!
+//        This was preventing the monster from moving
 var Monster = function(options) {
     //Regarding that (jshint linter speaking): If a strict mode function is 
     //executed using function invocation, its 'this' value will be undefined.
@@ -32,20 +34,18 @@ var Monster = function(options) {
 
     that.render = function () {
         // Clear the window.canvas
-        that.image.addEventListener('load', function() {
-          that.context.clearRect(0, 0, window.canvas.width, window.canvas.height);
-          // Draw the animation
-          that.context.drawImage (
-              that.image,
-              frameIndex * that.width / numberOfFrames,
-              that.topIndex,
-              that.width / numberOfFrames,
-              that.height,
-              that.x,
-              that.y,
-              that.width / numberOfFrames,
-              that.height);
-        });
+        that.context.clearRect(0, 0, window.canvas.width, window.canvas.height);
+        // Draw the animation
+        that.context.drawImage (
+            that.image,
+            frameIndex * that.width / numberOfFrames,
+            that.topIndex,
+            that.width / numberOfFrames,
+            that.height,
+            that.x,
+            that.y,
+            that.width / numberOfFrames,
+            that.height);
     };
 
     that.loop = options.loop;
@@ -64,6 +64,7 @@ var Monster = function(options) {
     }
 
     that.runRight = function() {
+        console.log(frameIndex);
         tickCount += 1;
         // that.topIndex = 0;
         if (tickCount > ticksPerFrame) {
@@ -121,16 +122,6 @@ var Monster = function(options) {
     that.moveY = function() {
         that.velocityY += that.gravity;
         that.y += that.velocityY;
-        // if (upPressed) {
-        //     that.jump();
-        // }
-        // Jumping position
-        // There is a bug here that makes Mario jump in standing position if 
-        // you press the up button for an extremely short duration. We can call 
-        // it a hidden feature!
-        // if (upPressed || !that.onground){
-        //     frameIndex = 5;
-        // }
         if (that.onground) {
             that.velocityY = 0;
         }
@@ -140,14 +131,10 @@ var Monster = function(options) {
         if (motion_direction === 'R' && that.x < window.canvas.width - that.width / numberOfFrames) {
             that.x += that.velocityX;
             that.runRight();
-            // that.right = true;
-            // that.left = false;
         }
         else if (motion_direction === 'L' && that.x > 0) {
             that.x -= that.velocityX;
             that.runLeft();
-            // that.right = false;
-            // that.left = true;
         }
         else  {
             frameIndex = 0;

@@ -2,7 +2,8 @@
 
   'use strict';
 
-function gameLoop () {
+function gameLoop (timestamp) {
+    // console.log(timestamp);
     window.goomba.render();
     window.goomba.moveX();
     window.goomba.moveY();
@@ -11,10 +12,6 @@ function gameLoop () {
     
 }
 
-// window.goomba.addEventListener('load', gameLoop);
-// for (let i = 0; i < 1000; i++ ) {
   window.requestAnimationFrame(gameLoop);
-  // gameLoop();
-// }
 
 }());
