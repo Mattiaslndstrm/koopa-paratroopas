@@ -7,6 +7,10 @@
 var Monster = function(options) {
     //Regarding that (jshint linter speaking): If a strict mode function is 
     //executed using function invocation, its 'this' value will be undefined.
+
+    var canvas = window.sprite_canvas,
+        ctx    = window.sprite_canvas.ctx;
+
     var that = {}, 
         frameIndex = 0,
         tickCount = 0,
@@ -14,7 +18,7 @@ var Monster = function(options) {
         numberOfFrames = options.numberOfFrames || 1;
         motion_direction = 'R';
 
-    that.context    = options.context;
+    that.context    = ctx;
     that.width      = options.width; // width of sprite
     that.height     = options.height; // height of sprite
     that.image      = options.image; // spritesheet file
@@ -108,9 +112,9 @@ var Monster = function(options) {
     // collision happens, and update that with the x-coordinates of the 
     // object. No idea if it will work, but let's try it!
     that.collisionDetection = function() {
-        if (that.y >= window.sprite_canvas.height - 148) {
+        if (that.y >= canvas.height - 148) {
             that.onground = true;
-            that.y = window.sprite_canvas.height - 148;
+            that.y = canvas.height - 148;
         }
     };
 
@@ -123,7 +127,7 @@ var Monster = function(options) {
     };
 
     that.moveX = function() {
-        if (motion_direction === 'R' && that.x < window.sprite_canvas.width - that.width / numberOfFrames) {
+        if (motion_direction === 'R' && that.x < canvas.width - that.width / numberOfFrames) {
             that.x += that.velocityX;
             that.runRight();
         }
@@ -135,7 +139,7 @@ var Monster = function(options) {
             frameIndex = 0;
         }
 
-        if ( that.x >= window.sprite_canvas.width - that.width / numberOfFrames ) {
+        if ( that.x >= canvas.width - that.width / numberOfFrames ) {
           motion_direction = 'L';
           that.topIndex = that.leftIndex*16;
         }

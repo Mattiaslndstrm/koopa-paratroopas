@@ -321,7 +321,7 @@
   var level_0 = new World(0);
   var level_1 = new World(1);
 
-  window.level_0 = level_0;
+  window.level_1 = level_1;
   // level_1.render();
 
 

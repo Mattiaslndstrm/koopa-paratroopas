@@ -10,6 +10,7 @@
 
   'use strict';
 
+  var canvas = window.sprite_canvas;
   var goomba_tilemap = new Image();
   goomba_tilemap.src = 'assets/monsters_tileset.png';
 
@@ -22,7 +23,7 @@
    * 4. width, height, context, topIndex
   */
   var goomba = Monster({
-    context: window.sprite_canvas.getContext('2d'),
+    // context: window.sprite_canvas.getContext('2d'),
     width: 32,
     height: 16,
     leftIndex: 1,
@@ -31,7 +32,7 @@
     numberOfFrames: 2,
     ticksPerFrame: 16,
     x: 20,
-    y: window.sprite_canvas.height - 148,
+    y: canvas.height - 148,
     velocityX: 0.75,
     velocityY: 0,
     gravity: 0.3,

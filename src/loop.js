@@ -2,10 +2,11 @@ window.onload = (function() {
 
   'use strict';
 
+var canvas = window.sprite_canvas;
+
 function gameLoop () {
     
-    window.sprite_canvas.ctx.clearRect(0, 0, window.sprite_canvas.width, window.sprite_canvas.height);
-    // window.level_0.render();
+    canvas.ctx.clearRect(0, 0, canvas.width, canvas.height);
     window.goomba.render();
     window.goomba.moveX();
     window.goomba.moveY();
@@ -17,6 +18,7 @@ function gameLoop () {
     window.requestAnimationFrame(gameLoop);
 }
 
+  window.level_1.render();
   gameLoop();
 
 }());
