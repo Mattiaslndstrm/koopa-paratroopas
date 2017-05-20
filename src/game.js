@@ -16,6 +16,7 @@
     canvas = document.getElementById('game');
     canvas.width = 640;
     canvas.height = 480;
+    canvas.ctx = canvas.getContext('2d');
     window.canvas = canvas;
   }
 

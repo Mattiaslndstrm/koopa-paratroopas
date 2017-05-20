@@ -8,10 +8,7 @@
 
 (function() {
 
-// var canvas = document.getElementById('game');
-// canvas.width = 640;
-// canvas.height = 480;
-
+  'use strict';
 
   var goomba_tilemap = new Image();
   goomba_tilemap.src = 'assets/monsters_tileset.png';
@@ -25,12 +22,11 @@
    * 4. width, height, context, topIndex
   */
   var goomba = Monster({
-    context: canvas.getContext('2d'),
+    context: window.canvas.getContext('2d'),
     width: 32,
     height: 16,
     leftIndex: 1,
     rightIndex: 1,
-    // topIndex: 1,
     image: goomba_tilemap,
     numberOfFrames: 2,
     ticksPerFrame: 16,

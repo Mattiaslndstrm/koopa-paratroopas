@@ -4,8 +4,6 @@
  * Object constructor for all sprites
 */
 
-// ISSUE: at no point do you check whether the spritesheet is loaded!!
-//        This was preventing the monster from moving
 var Monster = function(options) {
     //Regarding that (jshint linter speaking): If a strict mode function is 
     //executed using function invocation, its 'this' value will be undefined.
@@ -33,19 +31,17 @@ var Monster = function(options) {
     that.jumpHeight = options.jumpHeight;
 
     that.render = function () {
-        // Clear the window.canvas
-        that.context.clearRect(0, 0, window.canvas.width, window.canvas.height);
-        // Draw the animation
-        that.context.drawImage (
-            that.image,
-            frameIndex * that.width / numberOfFrames,
-            that.topIndex,
-            that.width / numberOfFrames,
-            that.height,
-            that.x,
-            that.y,
-            that.width / numberOfFrames,
-            that.height);
+          // Draw the animation
+          that.context.drawImage (
+              that.image,
+              frameIndex * that.width / numberOfFrames,
+              that.topIndex,
+              that.width / numberOfFrames,
+              that.height,
+              that.x,
+              that.y,
+              that.width / numberOfFrames,
+              that.height);
     };
 
     that.loop = options.loop;
@@ -64,7 +60,6 @@ var Monster = function(options) {
     }
 
     that.runRight = function() {
-        console.log(frameIndex);
         tickCount += 1;
         // that.topIndex = 0;
         if (tickCount > ticksPerFrame) {

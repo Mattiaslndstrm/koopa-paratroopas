@@ -1,4 +1,3 @@
-'use strict';
 /**
  * src/mario.js
  *
@@ -18,11 +17,13 @@
         // dw  Destination width   
         // dh  Destination height  
 
-window.onload = function() {
+// window.onload = function() {
+(function() {
 
-var canvas = document.getElementById('game');
-canvas.width = 640;
-canvas.height = 480;
+'use strict';
+// var canvas = document.getElementById('game');
+// canvas.width = 640;
+// canvas.height = 480;
 var marioImage = new Image();
 marioImage.src = 'assets/mario_wjlfy5.png';
 var rightPressed = false;
@@ -85,7 +86,7 @@ function sprite (options) {
 
     that.render = function () {
         // Clear the canvas
-        that.context.clearRect(0, 0, canvas.width, canvas.height);
+        // that.context.clearRect(0, 0, canvas.width, canvas.height);
         // Draw the animation
         that.context.drawImage (
             that.image,
@@ -237,18 +238,19 @@ var mario = sprite({
     // left: false,
 });
 
-function gameLoop () {
-    window.requestAnimationFrame(gameLoop);
+// function gameLoop () {
+//     window.requestAnimationFrame(gameLoop);
 
     
-    mario.render();
-    mario.moveX();
-    mario.moveY();
-    mario.collisionDetection();
-}
+//     mario.render();
+//     mario.moveX();
+//     mario.moveY();
+//     mario.collisionDetection();
+// }
 
 // marioImage.addEventListener('load', gameLoop());
-marioImage.addEventListener('load', gameLoop);
+// marioImage.addEventListener('load', gameLoop);
 
+window.mario = mario;
 
-};
+}());

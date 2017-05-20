@@ -11,13 +11,8 @@
 
   'use strict';
 
-  // canvas
-  var DOM = {};
-
-  DOM.$canvas = document.getElementById("game");
-  DOM.$canvas.width  = 1280;
-  DOM.$canvas.height = 480;
-  var ctx     = DOM.$canvas.getContext("2d");
+  var canvas = window.canvas;
+  var ctx    = window.canvas.ctx;
 
   // new Image()
   var landscape = new Image();
@@ -33,7 +28,7 @@
    * @param {int}    y - vertical position on canvas
   */
   function Tile (type, x, y) {
-    var image   = landscape,
+    var image = landscape,
         column, row;
     switch (type) {
       case 'f':// floor tile
@@ -221,7 +216,7 @@
       render : function() {
         // draw background color rectangle
         ctx.beginPath();
-        ctx.rect(0, 0, DOM.$canvas.width, DOM.$canvas.height);
+        ctx.rect(0, 0, canvas.width, canvas.height);
         ctx.fillStyle = background_color;
         ctx.fill();
         ctx.closePath();
@@ -325,7 +320,9 @@
   // =================  DRAW WORLD ========================
   var level_0 = new World(0);
   var level_1 = new World(1);
-  level_1.render();
+
+  window.level_0 = level_0;
+  // level_1.render();
 
 
 }());
