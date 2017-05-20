@@ -4,7 +4,7 @@ window.onload = (function() {
 
 function gameLoop () {
     
-    window.canvas.ctx.clearRect(0, 0, window.canvas.width, window.canvas.height);
+    window.sprite_canvas.ctx.clearRect(0, 0, window.sprite_canvas.width, window.sprite_canvas.height);
     // window.level_0.render();
     window.goomba.render();
     window.goomba.moveX();

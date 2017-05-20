@@ -168,9 +168,9 @@ function sprite (options) {
     // colliosion happens, and update that with the x-coordinates of the 
     // object. No idea if it will work, but let's try it!
     that.collisionDetection = function() {
-        if (that.y >= canvas.height - 148) {
+        if (that.y >= window.sprite_canvas.height - 148) {
             that.onground = true;
-            that.y = canvas.height - 148;
+            that.y = window.sprite_canvas.height - 148;
         }
     };
 
@@ -197,7 +197,7 @@ function sprite (options) {
     };
 
     that.moveX = function() {
-        if (rightPressed && that.x < canvas.width - that.width / numberOfFrames) {
+        if (rightPressed && that.x < window.sprite_canvas.width - that.width / numberOfFrames) {
             that.x += that.velocityX;
             that.runRight();
             // that.right = true;
@@ -220,7 +220,7 @@ function sprite (options) {
 
 
 var mario = sprite({
-    context: canvas.getContext('2d'),
+    context: window.sprite_canvas.getContext('2d'),
     width: 64,
     height: 16,
     topIndex: 0,
@@ -228,7 +228,7 @@ var mario = sprite({
     numberOfFrames: 4,
     ticksPerFrame: 8,
     x: 20,
-    y: canvas.height - 148,
+    y: window.sprite_canvas.height - 148,
     velocityX: 1.5,
     velocityY: 0,
     gravity: 0.3,

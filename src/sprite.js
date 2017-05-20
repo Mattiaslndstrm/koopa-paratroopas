@@ -108,9 +108,9 @@ var Monster = function(options) {
     // collision happens, and update that with the x-coordinates of the 
     // object. No idea if it will work, but let's try it!
     that.collisionDetection = function() {
-        if (that.y >= window.canvas.height - 148) {
+        if (that.y >= window.sprite_canvas.height - 148) {
             that.onground = true;
-            that.y = window.canvas.height - 148;
+            that.y = window.sprite_canvas.height - 148;
         }
     };
 
@@ -123,7 +123,7 @@ var Monster = function(options) {
     };
 
     that.moveX = function() {
-        if (motion_direction === 'R' && that.x < window.canvas.width - that.width / numberOfFrames) {
+        if (motion_direction === 'R' && that.x < window.sprite_canvas.width - that.width / numberOfFrames) {
             that.x += that.velocityX;
             that.runRight();
         }
@@ -135,7 +135,7 @@ var Monster = function(options) {
             frameIndex = 0;
         }
 
-        if ( that.x >= window.canvas.width - that.width / numberOfFrames ) {
+        if ( that.x >= window.sprite_canvas.width - that.width / numberOfFrames ) {
           motion_direction = 'L';
           that.topIndex = that.leftIndex*16;
         }

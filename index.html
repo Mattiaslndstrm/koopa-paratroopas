@@ -11,9 +11,33 @@
         -->
 </head>
 <body>
-  <canvas id="game"></canvas>
-  <!-- <img src="assets/mario_wjlfy5_large.png"> -->
+  <div id="stage">
+    <canvas id="game"></canvas>
+    <canvas id="game-background"></canvas>
+    <canvas id="game-sprites"></canvas>
+  </div>
 
+<style>
+  #stage {
+    width: 640px;
+    height: 480px;
+    position: relative;
+    border: 2px solid black;
+  }
+
+  canvas {
+    position: absolute;
+  }
+
+  #game-sprites {
+    z-index; 2;
+  }
+
+  #game-background {
+    z-index: 1;
+  }
+
+</style>
   <script src="src/game.js"></script>
   <script src="src/world.js"></script>
   <script src="src/sprite.js"></script>

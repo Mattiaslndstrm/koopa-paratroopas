@@ -10,14 +10,30 @@
   
   'use strict';
   
-  var canvas = {};
+  var width  = 640,
+      height = 480;
+
+  function initializeBackground () {
+    var canvas = document.getElementById('game-background');
+    canvas.width = width;
+    canvas.height = height;
+    canvas.ctx = canvas.getContext('2d');
+    window.back_canvas = canvas;
+  }
+
+
+  function initializeSpriteCanvas () {
+    var canvas = document.getElementById('game-sprites');
+    canvas.width = width;
+    canvas.height = height;
+    canvas.ctx = canvas.getContext('2d');
+    window.sprite_canvas = canvas;
+  }
+
 
   function init() {
-    canvas = document.getElementById('game');
-    canvas.width = 640;
-    canvas.height = 480;
-    canvas.ctx = canvas.getContext('2d');
-    window.canvas = canvas;
+    initializeBackground();
+    initializeSpriteCanvas();
   }
 
   init();

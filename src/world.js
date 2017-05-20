@@ -11,8 +11,8 @@
 
   'use strict';
 
-  var canvas = window.canvas;
-  var ctx    = window.canvas.ctx;
+  var canvas = window.back_canvas;
+  var ctx    = window.back_canvas.ctx;
 
   // new Image()
   var landscape = new Image();
