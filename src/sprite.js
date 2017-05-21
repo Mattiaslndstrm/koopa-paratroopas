@@ -112,9 +112,9 @@ var Monster = function(options) {
     // collision happens, and update that with the x-coordinates of the 
     // object. No idea if it will work, but let's try it!
     that.collisionDetection = function() {
-        if (that.y >= canvas.height - 148) {
+        if (that.y >= (canvas.height - 16) -2*16) {
             that.onground = true;
-            that.y = canvas.height - 148;
+            that.y = (canvas.height - 16) -2*16;
         }
     };
 

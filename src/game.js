@@ -11,7 +11,7 @@
   'use strict';
   
   var width  = 640,
-      height = 480;
+      height = 256;
 
   function initializeBackground () {
     var canvas = document.getElementById('game-background');

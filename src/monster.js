@@ -32,7 +32,7 @@
     numberOfFrames: 2,
     ticksPerFrame: 16,
     x: 20,
-    y: canvas.height - 148,
+    y: (canvas.height - 16) - 2*16,
     velocityX: 0.75,
     velocityY: 0,
     gravity: 0.3,

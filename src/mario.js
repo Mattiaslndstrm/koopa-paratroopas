@@ -23,9 +23,7 @@
 'use strict';
 var canvas = window.sprite_canvas,
     ctx    = window.sprite_canvas.ctx;
-// var canvas = document.getElementById('game');
-// canvas.width = 640;
-// canvas.height = 480;
+
 var marioImage = new Image();
 marioImage.src = 'assets/mario_wjlfy5.png';
 var rightPressed = false;
