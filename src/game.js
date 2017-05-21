@@ -6,36 +6,35 @@
 */
 
 
-var Game = (function() {
+(function() {
   
   'use strict';
+  
+  var width  = 640,
+      height = 256;
 
-  var DOM = {},
-      ctx;
-
-  function cacheDOM() {
-    DOM.canvas = document.getElementById('game-board');
+  function initializeBackground () {
+    var canvas = document.getElementById('game-background');
+    canvas.width = width;
+    canvas.height = height;
+    canvas.ctx = canvas.getContext('2d');
+    window.back_canvas = canvas;
   }
 
-  var Henry = new Monster(10, DOM.canvas.width/2, DOM.canvas.height/2);
 
-  function render() {
-    ctx = DOM.canvas.getContext("2d");
+  function initializeSpriteCanvas () {
+    var canvas = document.getElementById('game-sprites');
+    canvas.width = width;
+    canvas.height = height;
+    canvas.ctx = canvas.getContext('2d');
+    window.sprite_canvas = canvas;
   }
-
-
-
 
 
   function init() {
-    cacheDOM();
-    addBackground();
-    addGame();
-    addMario();
+    initializeBackground();
+    initializeSpriteCanvas();
   }
 
-
-  return { init : init };
-
-
+  init();
 }());

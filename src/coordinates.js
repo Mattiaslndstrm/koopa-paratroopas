@@ -35,7 +35,7 @@ function coFromForeground(arr) {
     }
     return coordinates;
 }  
-console.log(coordinates);
+console.log(coFromForeground(foreground));
 
 //     var coordinates2 = foreground.map(function(a) {
 //         var now = foreground.indexOf(a);
