@@ -4,6 +4,18 @@
  * Creates the Mario object
  *
 */
+
+/**
+ * notes:
+ * In order to make Mario an instance of Sprite(),
+ * you need to run `var mario = new Sprite()`,
+ * and then add function properties to it (methods).
+ * e.g. `mario.prototype.jump = function () {// Jump!}`
+ *
+ * in other words, you do *not* make a new object that
+ * inherits from Sprite(), and *then* instantiate that new object.
+*/
+
 //The frames in the sprite sheet is 16x16px
 //mario_wjlfy5.png
         // context.drawImage(img, sx, sy, sw, sh, dx, dy, dw, dh)

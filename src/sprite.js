@@ -4,6 +4,20 @@
  * Object constructor for all sprites
 */
 
+/**
+ * Useful options for the general sprite:
+ *
+ * game canvas position (x, y)
+ * spritemap image
+ * spritemap position (x, y)
+ * spritemap height, width
+ * number of frames for motion
+ * speed
+ * die actions?
+ * 
+ * Everything else should be an added feature
+*/
+
 var Monster = function(options) {
     //Regarding that (jshint linter speaking): If a strict mode function is 
     //executed using function invocation, its 'this' value will be undefined.
