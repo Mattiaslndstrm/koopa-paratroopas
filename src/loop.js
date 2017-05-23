@@ -18,6 +18,9 @@ function gameLoop () {
     window.requestAnimationFrame(gameLoop);
 }
 
+  // if mario.x <= canvas.width/2 then move mario
+  // else move screen.x
+  // -> need to externalize the horizontal keyhandler
   window.level_1.render();
   gameLoop();
 
