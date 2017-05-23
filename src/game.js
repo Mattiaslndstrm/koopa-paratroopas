@@ -10,7 +10,7 @@
   
   'use strict';
   
-  var width  = 640,
+  var width  = 320,
       height = 256;
 
   function initializeBackground () {
