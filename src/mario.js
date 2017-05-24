@@ -34,42 +34,11 @@
 
 'use strict';
 var canvas = window.sprite_canvas,
-    ctx    = window.sprite_canvas.ctx;
+    ctx    = window.sprite_canvas.ctx,
+    keys   = window.keys;
 
 var marioImage = new Image();
 marioImage.src = 'assets/mario_wjlfy5.png';
-var rightPressed = false;
-var leftPressed = false;
-var upPressed = false;
-
-document.addEventListener('keydown', keyDownHandler, false);
-document.addEventListener('keyup', keyUpHandler, false);
-
-function keyDownHandler(e) {
-    if (e.keyCode == 39) {
-        rightPressed = true;
-    }
-    else if (e.keyCode == 37) {
-        leftPressed = true;
-    }
-
-    else if (e.keyCode == 38) {
-        upPressed = true;
-    }
-}
-
-function keyUpHandler(e) {
-    if (e.keyCode == 39) {
-        rightPressed = false;
-    }
-    else if (e.keyCode == 37) {
-        leftPressed = false;
-    }
-    else if (e.keyCode == 38) {
-        upPressed = false;
-    }
-}
-
 
 function sprite (options) {
     //Regarding that (jshint linter speaking): If a strict mode function is 
@@ -191,14 +160,14 @@ function sprite (options) {
         that.velocityY += that.gravity;
         that.y += that.velocityY;
 
-        if (upPressed) {
+        if (keys.up) {
             that.jump();
         }
         // Jumping position
         // There is a bug here that makes Mario jump in standing position if 
         // you press the up button for an extremely short duration. We can call 
         // it a hidden feature!
-        if (upPressed || !that.onground){
+        if (keys.up || !that.onground){
             frameIndex = 5;
         }
         // if (that.onground) {
@@ -209,17 +178,17 @@ function sprite (options) {
     };
 
     that.moveX = function() {
-        if (rightPressed && that.x < canvas.width - that.width / numberOfFrames) {
+        if (keys.right && that.x < canvas.width - that.width / numberOfFrames) {
             that.x += that.velocityX;
             that.runRight();
-            // that.right = true;
-            // that.left = false;
+            // that.right = 1;
+            // that.left = 0;
         }
-        else if (leftPressed && that.x > 0) {
+        else if (keys.left && that.x > 0) {
             that.x -= that.velocityX;
             that.runLeft();
-            // that.right = false;
-            // that.left = true;
+            // that.right = 0;
+            // that.left = 1;
         }
 
         else  {
