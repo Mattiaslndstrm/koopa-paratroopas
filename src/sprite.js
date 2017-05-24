@@ -30,8 +30,8 @@ var Monster = function(options) {
         tickCount = 0,
         ticksPerFrame = options.ticksPerFrame || 0,
         numberOfFrames = options.numberOfFrames || 1;
-        motion_direction = 'R';
-
+        
+    that.motion_direction =  options.motion_direction || 'R';
     that.context    = ctx;
     that.width      = options.width; // width of sprite
     that.height     = options.height; // height of sprite
@@ -65,11 +65,11 @@ var Monster = function(options) {
     that.loop = options.loop;
 
     that.move = function() {
-        if ( motion_direction === 'R' ) {
+        if ( that.motion_direction === 'R' ) {
           that.runRight();
           // check collision, if true, change directions
         }
-        else if ( motion_direction === 'L' ) {
+        else if ( that.motion_direction === 'L' ) {
           that.runLeft();
           // check collision, if true, change directions
         }
@@ -141,11 +141,11 @@ var Monster = function(options) {
     };
 
     that.moveX = function() {
-        if (motion_direction === 'R' && that.x < canvas.width - that.width / numberOfFrames) {
+        if (that.motion_direction === 'R' && that.x < canvas.width - that.width / numberOfFrames) {
             that.x += that.velocityX;
             that.runRight();
         }
-        else if (motion_direction === 'L' && that.x > 0) {
+        else if (that.motion_direction === 'L' && that.x > 0) {
             that.x -= that.velocityX;
             that.runLeft();
         }
@@ -154,11 +154,11 @@ var Monster = function(options) {
         }
 
         if ( that.x >= canvas.width - that.width / numberOfFrames ) {
-          motion_direction = 'L';
+          that.motion_direction = 'L';
           that.topIndex = that.leftIndex*16;
         }
         else if ( that.x <= 0 ) {
-          motion_direction = 'R';
+          that.motion_direction = 'R';
           that.topIndex = that.rightIndex*16;
         }
     };
