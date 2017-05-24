@@ -37,7 +37,8 @@
     velocityY: 0,
     gravity: 0.3,
     onground: true,
-    jumpHeight: -8
+    jumpHeight: -8,
+    motion_direction: 'L',
   });
 
 /**
