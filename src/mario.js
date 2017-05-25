@@ -219,18 +219,22 @@ var mario = sprite({
     // left: false,
 });
 
-// function gameLoop () {
-//     window.requestAnimationFrame(gameLoop);
-
-    
-//     mario.render();
-//     mario.moveX();
-//     mario.moveY();
-//     mario.collisionDetection();
-// }
-
-// marioImage.addEventListener('load', gameLoop());
-// marioImage.addEventListener('load', gameLoop);
+mario.moveHero = function(keys) {
+  // console.log("frameIndex: " + this.frameIndex);
+  // Originally, moveX and moveY were called every frame
+  // now, they're not, so Mario just stops when you release a key
+  // Somehow, each render needs to check where Mario is, to
+  // decide whether to continue the action.
+  if ( keys.right ) {
+    this.moveX();
+  } else if ( keys.left ) {
+    this.moveX();
+  } else if ( keys.up ) {
+    this.moveY();
+  } else {
+    this.frameIndex = 0;
+  }
+}
 
 window.mario = mario;
 

@@ -16,14 +16,15 @@ function gameLoop () {
     // the problem:  frameIndex = 0 is used by runRight, but set in moveX.
     // if ( window.keys.right ) {
     //   if ( window.mario.x < canvas.width/2 ) {
-        window.mario.moveX();
+        // window.mario.moveX();
+      window.mario.moveHero(window.keys);
       // } else if ( window.mario.x >= canvas.width/2 ) {
       //   window.mario.runRight();
       // } else {
       //   window.mario.frameIndex = 0;
       // }
     // }
-    window.mario.moveY();
+    // window.mario.moveY();
     window.mario.collisionDetection();
     window.requestAnimationFrame(gameLoop);
 }
