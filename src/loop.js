@@ -12,7 +12,17 @@ function gameLoop () {
     window.goomba.moveY();
     window.goomba.collisionDetection();
     window.mario.render();
-    window.mario.moveX();
+    // doesn't work!!
+    // the problem:  frameIndex = 0 is used by runRight, but set in moveX.
+    // if ( window.keys.right ) {
+    //   if ( window.mario.x < canvas.width/2 ) {
+        window.mario.moveX();
+      // } else if ( window.mario.x >= canvas.width/2 ) {
+      //   window.mario.runRight();
+      // } else {
+      //   window.mario.frameIndex = 0;
+      // }
+    // }
     window.mario.moveY();
     window.mario.collisionDetection();
     window.requestAnimationFrame(gameLoop);
