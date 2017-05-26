@@ -59,6 +59,16 @@ function createMonsters(num) {
 }
 
 
+// Non es6 version of the createMonster function
+// function createMonsters(num) {
+//     return Array.from({length: num}, function()  {
+//       return Monster(monsterObject());
+//     });
+// }
+
+
+
+
 /**
  * OPTIONS:
     context
