@@ -55,11 +55,9 @@ function monsterObject()  {
 
 
 function createMonsters(num) {
-    return [...Array(num)].map((a) => a = monsterObject());
+    return [...Array(num)].map((a) => a = Monster(monsterObject()));
 }
 
-
-  var goomba = Monster(monsterObject());
 
 /**
  * OPTIONS:
@@ -79,6 +77,6 @@ function createMonsters(num) {
     jumpHeight - max height the sprite can jump!
 */
 
-window.goomba = goomba;
+window.goombaArray = createMonsters(40);
 
 }());
