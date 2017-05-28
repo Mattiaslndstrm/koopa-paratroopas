@@ -41,6 +41,22 @@
       }
   }
 
+  keys.isRunning = function() {
+    if ( this.left || this.right ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  keys.isJumping = function() {
+    if ( this.up ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   window.keys = keys;
 
 }());

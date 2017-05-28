@@ -70,6 +70,20 @@ function sprite (options) {
         // Clear the canvas
         // that.context.clearRect(0, 0, canvas.width, canvas.height);
         // Draw the animation
+        var move_screen = 0;
+        if ( keys.isRunning() ) {
+          if ( that.x >= canvas.width/2 && keys.right ) {
+            that.animate();
+            move_screen = 1;
+          } else {
+            that.animate();
+            that.moveX();
+            move_screen = 0;
+          }
+        } else {
+          frameIndex = 0;
+        }
+
         that.context.drawImage (
             that.image,
             frameIndex * that.width / numberOfFrames,
@@ -80,11 +94,20 @@ function sprite (options) {
             that.y,
             that.width / numberOfFrames,
             that.height);
+        return move_screen;
     };
 
     that.loop = options.loop;
 
-    that.update = function() {
+    that.animate = function() {
+        if ( keys.right && !keys.left ) {
+          that.topIndex = 0;
+        } else if ( !keys.right && keys.left ) {
+          that.topIndex = 16;
+        } else if ( keys.right && keys.left ) {
+          that.frameIndex = 0;
+          return 0;
+        }
         tickCount += 1;
         if (tickCount > ticksPerFrame) {
             tickCount = 0;
@@ -99,23 +122,6 @@ function sprite (options) {
             }
         }
     };
-
-    that.run = function(keys) {
-      if (keys.right) {
-        that.topIndex = 0;
-        that.update();
-      } else if (keys.left) {
-        that.topIndex = 16;
-        that.update();
-      } else {
-        frameIndex = 0;
-      }
-    };
-
-    that.stop = function() {
-      that.frameIndex = 0;
-    };
-
 
     that.runRight = function() {
         tickCount += 1;
@@ -199,14 +205,10 @@ function sprite (options) {
         if (keys.right && that.x < canvas.width - that.width / numberOfFrames) {
             that.x += that.velocityX;
             that.runRight();
-            // that.right = 1;
-            // that.left = 0;
         }
         else if (keys.left && that.x > 0) {
             that.x -= that.velocityX;
             that.runLeft();
-            // that.right = 0;
-            // that.left = 1;
         }
 
         else  {
@@ -259,23 +261,24 @@ mario.moveHero = function(keys) {
   }
 }
 
-mario.render = function (keys) {
-    console.log(JSON.stringify(keys));
-    // Clear the canvas
-    // that.context.clearRect(0, 0, canvas.width, canvas.height);
-    // Draw the animation
-    this.run(keys);
-    this.context.drawImage (
-        this.image,
-        this.frameIndex * this.width / this.numberOfFrames,
-        this.topIndex,
-        this.width / numberOfFrames,
-        this.height,
-        this.x,
-        this.y,
-        this.width / numberOfFrames,
-        this.height);
-};
+// mario.render = function (keys) {
+//     console.log(JSON.stringify(keys));
+//     // Clear the canvas
+//     // that.context.clearRect(0, 0, canvas.width, canvas.height);
+//     // Draw the animation
+//     this.run(keys);
+//     this.context.drawImage (
+//         this.image,
+//         this.frameIndex * this.width / this.numberOfFrames,
+//         this.topIndex,
+//         this.width / numberOfFrames,
+//         this.height,
+//         this.x,
+//         this.y,
+//         this.width / numberOfFrames,
+//         this.height);
+// };
+
 window.mario = mario;
 
 }());

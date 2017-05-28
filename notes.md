@@ -45,3 +45,27 @@ the loop:
 5. if render() does its own checking, there needs to be a variable inside `sprite` to hold the state.
 
 onKeyPress = move + animate
+
+
+draw background
+draw foreground
+draw Mario
+draw monsters
+change Mario position variables
+change position variables for all monsters
+check for key presses
+check for key releases
+check for collisions
+animate Mario
+animate monsters
+
+Rendering Mario:
+is Mario running?
+  yes - set top_index for direction, advance sprite, change position, draw Mario
+  no  - reset sprite, draw Mario
+is Mario in freefall?
+  yes - set top_index for direction, set sprite to "jump" position, change position, draw Mario
+  no  - reset sprite, draw Mario
+How do we know Mario is running?
+  mario.isRunning(true) or mario.isRunning(false)
+
