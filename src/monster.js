@@ -6,6 +6,9 @@
  *
 */
 
+/*jshint esnext: true*/
+/*jshint browser: true*/
+
 (function() {
 
   'use strict';
@@ -22,23 +25,49 @@
    *    The velocity should be determined by context
    * 4. width, height, context, topIndex
   */
-  var goomba = Monster({
-    // context: window.sprite_canvas.getContext('2d'),
-    width: 32,
-    height: 16,
-    leftIndex: 1,
-    rightIndex: 1,
-    image: goomba_tilemap,
-    numberOfFrames: 2,
-    ticksPerFrame: 16,
-    x: 20,
-    y: (canvas.height - 16) - 2*16,
-    velocityX: 0.75,
-    velocityY: 0,
-    gravity: 0.3,
-    onground: true,
-    jumpHeight: -8
-  });
+
+  function randBetween(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function monsterObject()  {
+
+    return {
+        // context: window.sprite_canvas.getContext('2d'),
+        width: 32,
+        height: 16,
+        leftIndex: 1,
+        rightIndex: 1,
+        image: goomba_tilemap,
+        numberOfFrames: 2,
+        ticksPerFrame: 16,
+        x: randBetween(20, canvas.width-20),
+        y: (canvas.height - 16) - 2*16,
+        velocityX: 0.75,
+        velocityY: 0,
+        gravity: 0.3,
+        onground: true,
+        jumpHeight: -8,
+        motion_direction: randBetween(1, 2) == 1 ? 'L' : 'R'
+      };
+
+}
+
+
+function createMonsters(num) {
+    return [...Array(num)].map((a) => a = Monster(monsterObject()));
+}
+
+
+// Non es6 version of the createMonster function
+// function createMonsters(num) {
+//     return Array.from({length: num}, function()  {
+//       return Monster(monsterObject());
+//     });
+// }
+
+
+
 
 /**
  * OPTIONS:
@@ -58,6 +87,6 @@
     jumpHeight - max height the sprite can jump!
 */
 
-window.goomba = goomba;
+window.goombaArray = createMonsters(40);
 
 }());
