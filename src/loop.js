@@ -3,6 +3,8 @@ window.onload = (function() {
   'use strict';
 
 var canvas = window.sprite_canvas;
+var keys = window.keys;
+var moving = keys.right + keys.left + keys.up + keys.down;
 
 function gameLoop () {
     
@@ -11,13 +13,17 @@ function gameLoop () {
     window.goomba.moveX();
     window.goomba.moveY();
     window.goomba.collisionDetection();
-    window.mario.render();
+    if (moving) {
+      window.mario.render(window.keys);
+    } else {
+      window.mario.render(0);
+    }
     // doesn't work!!
     // the problem:  frameIndex = 0 is used by runRight, but set in moveX.
     // if ( window.keys.right ) {
     //   if ( window.mario.x < canvas.width/2 ) {
         // window.mario.moveX();
-      window.mario.moveHero(window.keys);
+      // window.mario.moveHero(window.keys);
       // } else if ( window.mario.x >= canvas.width/2 ) {
       //   window.mario.runRight();
       // } else {

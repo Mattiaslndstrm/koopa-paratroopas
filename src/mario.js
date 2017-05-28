@@ -10,7 +10,7 @@
  * In order to make Mario an instance of Sprite(),
  * you need to run `var mario = new Sprite()`,
  * and then add function properties to it (methods).
- * e.g. `mario.prototype.jump = function () {// Jump!}`
+ * e.g. `mario.jump = function () {// Jump!}`
  *
  * in other words, you do *not* make a new object that
  * inherits from Sprite(), and *then* instantiate that new object.
@@ -49,6 +49,7 @@ function sprite (options) {
         ticksPerFrame = options.ticksPerFrame || 0,
         numberOfFrames = options.numberOfFrames || 1;
 
+    that.moving = 0;
     that.context = ctx;
     that.width = options.width;
     that.height = options.height;
@@ -83,22 +84,39 @@ function sprite (options) {
 
     that.loop = options.loop;
 
-//     that.update = function() {
-//         tickCount += 1;
+    that.update = function() {
+        tickCount += 1;
+        if (tickCount > ticksPerFrame) {
+            tickCount = 0;
+            if (frameIndex < numberOfFrames -1) {
+                frameIndex += 1;
+            }
+            else if (that.loop) {
+                frameIndex = 1;
+            }
+            else {
+                frameIndex = 1;
+            }
+        }
+    };
 
-//         if (tickCount > ticksPerFrame) {
-//             tickCount = 0;
-//             if (frameIndex < numberOfFrames -1) {
-//                 frameIndex += 1;
-//             }
-//             else if (that.loop) {
-//                 frameIndex = 1;
-//             }
-//             else {
-//                 frameIndex = 1;
-//             }
-//         }
-// };
+    that.run = function(keys) {
+      if (keys.right) {
+        that.topIndex = 0;
+        that.update();
+      } else if (keys.left) {
+        that.topIndex = 16;
+        that.update();
+      } else {
+        frameIndex = 0;
+      }
+    };
+
+    that.stop = function() {
+      that.frameIndex = 0;
+    };
+
+
     that.runRight = function() {
         tickCount += 1;
         that.topIndex = 0;
@@ -225,9 +243,14 @@ mario.moveHero = function(keys) {
   // now, they're not, so Mario just stops when you release a key
   // Somehow, each render needs to check where Mario is, to
   // decide whether to continue the action.
+  //    Define run(), which just loops frames
   if ( keys.right ) {
+    // this.topIndex = 0;
+    // this.run();
     this.moveX();
   } else if ( keys.left ) {
+    // this.topIndex = 1;
+    // this.run();
     this.moveX();
   } else if ( keys.up ) {
     this.moveY();
@@ -236,6 +259,23 @@ mario.moveHero = function(keys) {
   }
 }
 
+mario.render = function (keys) {
+    console.log(JSON.stringify(keys));
+    // Clear the canvas
+    // that.context.clearRect(0, 0, canvas.width, canvas.height);
+    // Draw the animation
+    this.run(keys);
+    this.context.drawImage (
+        this.image,
+        this.frameIndex * this.width / this.numberOfFrames,
+        this.topIndex,
+        this.width / numberOfFrames,
+        this.height,
+        this.x,
+        this.y,
+        this.width / numberOfFrames,
+        this.height);
+};
 window.mario = mario;
 
 }());
